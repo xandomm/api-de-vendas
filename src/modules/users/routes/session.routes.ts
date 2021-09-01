@@ -4,30 +4,17 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import SessionController from '../controllers/SessionController';
 
 const SessionRoutes = Router();
-const SessionController = new SessionController();
-
-SessionRoutes.get('/', SessionController.index);
+const sessionController = new SessionController();
 
 SessionRoutes.post(
   '/',
   celebrate({
     [Segments.BODY]: {
-      name: Joi.string().required(),
       email: Joi.string().email().required(),
       password: Joi.string().required(),
     },
   }),
-  SessionController.create,
-);
-
-SessionRoutes.delete(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
-  }),
-  SessionController.delete,
+  sessionController.create,
 );
 
 export default SessionRoutes;
