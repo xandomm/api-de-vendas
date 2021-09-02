@@ -3,28 +3,21 @@ import UserTokens from '../entities/UserToken';
 
 @EntityRepository(UserTokens)
 export class UserTokensRepository extends Repository<UserTokens> {
-  public async findByName(name: string): Promise<UserTokens | undefined> {
-    const user = await this.findOne({
+  public async findByToken(token: string): Promise<UserTokens | undefined> {
+    const UserToken = await this.findOne({
       where: {
-        name,
+        token,
       },
     });
-    return user;
+    return UserToken;
   }
-  public async findById(id: string): Promise<UserTokens | undefined> {
-    const user = await this.findOne({
-      where: {
-        id,
-      },
+  public async generate(user_id: string): Promise<UserTokens | undefined> {
+    const UserToken = await this.create({
+      user_id,
     });
-    return user;
-  }
-  public async findByEmail(email: string): Promise<UserTokens | undefined> {
-    const user = await this.findOne({
-      where: {
-        email,
-      },
-    });
-    return user;
+
+    await this.save(UserToken);
+
+    return UserToken;
   }
 }
