@@ -17,6 +17,9 @@ class User {
   @Column()
   email: string;
 
+  @Column({ nullable: true })
+  xablau: string;
+
   @Column()
   password: string;
 
