@@ -12,6 +12,8 @@ class Product {
   id: string;
 
   @Column()
+  avatar: string;
+  @Column()
   name: string;
 
   @Column('decimal')
@@ -19,6 +21,15 @@ class Product {
 
   @Column('int')
   quantity: number;
+
+  @Column()
+  description: string;
+
+  // @Column()
+  // tags: string[];
+
+  @Column()
+  image: string;
 
   @CreateDateColumn()
   created_at: Date;

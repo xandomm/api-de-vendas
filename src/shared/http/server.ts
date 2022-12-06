@@ -9,7 +9,11 @@ import '@shared/typeORM';
 import uploadsConfig from '@config/uploads';
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+  }),
+);
 app.use(express.json());
 app.use('/files', express.static(uploadsConfig.directory));
 app.use(routes);
