@@ -7,10 +7,12 @@ interface IRequest {
   name: string;
   price: number;
   quantity: number;
+  avatar: string;
 }
 
 class CreateProductService {
   public async execute({ name, price, quantity }: IRequest): Promise<Product> {
+
     const productsRepository = getCustomRepository(ProductRepository);
 
     const productsExist = await productsRepository.findByName(name);
@@ -24,8 +26,12 @@ class CreateProductService {
       price,
       quantity,
     });
-
-    await productsRepository.save(product);
+    try {
+      await productsRepository.save(product);
+    } catch (error) {
+      console.log(error);
+    }
+    // await productsRepository.save(product);
 
     return product;
   }

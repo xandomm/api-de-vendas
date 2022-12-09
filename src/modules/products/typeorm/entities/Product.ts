@@ -13,6 +13,7 @@ class Product {
 
   @Column()
   avatar: string;
+
   @Column()
   name: string;
 
@@ -22,14 +23,14 @@ class Product {
   @Column('int')
   quantity: number;
 
-  @Column()
-  description: string;
+  // @Column()
+  // description: string;
 
   // @Column()
   // tags: string[];
 
-  @Column()
-  image: string;
+  // @Column()
+  // image: string;
 
   @CreateDateColumn()
   created_at: Date;

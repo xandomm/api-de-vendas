@@ -20,6 +20,7 @@ export class CreateProducts1628182599814 implements MigrationInterface {
           {
             name: 'avatar',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'price',
@@ -34,6 +35,7 @@ export class CreateProducts1628182599814 implements MigrationInterface {
           {
             name: 'description',
             type: 'varchar',
+            isNullable: true,
           },
           {
             name: 'created_at',
