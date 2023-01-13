@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
-const ProductsRouter = Router();
+
+const productsRouter = Router();
 const productsController = new ProductsController();
 
-ProductsRouter.get('/', productsController.index);
-ProductsRouter.get(
+productsRouter.get('/', productsController.index);
+
+productsRouter.get(
   '/:id',
   celebrate({
     [Segments.PARAMS]: {
@@ -14,7 +16,8 @@ ProductsRouter.get(
   }),
   productsController.show,
 );
-ProductsRouter.post(
+
+productsRouter.post(
   '/',
   celebrate({
     [Segments.BODY]: {
@@ -25,20 +28,30 @@ ProductsRouter.post(
   }),
   productsController.create,
 );
-ProductsRouter.put(
+
+productsRouter.put(
   '/:id',
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
-    },
     [Segments.BODY]: {
       name: Joi.string().required(),
       price: Joi.number().precision(2).required(),
       quantity: Joi.number().required(),
     },
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
   }),
   productsController.update,
 );
-ProductsRouter.delete('/:id', productsController.delete);
 
-export default ProductsRouter;
+productsRouter.delete(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  productsController.delete,
+);
+
+export default productsRouter;
