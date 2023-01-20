@@ -29,7 +29,7 @@ class CreateOrderService {
 
     const existsProducts = await productsRepository.findAllByIds(products);
 
-    if (!existsProducts.length) {
+    if (!existsProducts) {
       throw new AppError('Could not find any products with the given ids.');
     }
 

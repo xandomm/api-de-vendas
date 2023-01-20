@@ -5,6 +5,10 @@ import authConfig from '@config/auth';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
+import { any } from 'joi';
+import auth from '@config/auth';
+
+auth.jwt.secret = "'secret!'";
 
 interface IRequest {
   email: string;
