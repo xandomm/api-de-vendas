@@ -1,0 +1,742 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "description": "Users List.",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "User E-mail.",
+            "required": true,
+            "in": "body",
+            "example": "user@email.com",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user@email.com"
+                }
+              }
+            }
+          },
+          {
+            "name": "password",
+            "description": "User Password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Users List",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "575b1806-db58-4e97-8918-2dd9fbcc6990"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "username"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "user@gmail.com"
+                    },
+                    "avatar": {},
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-12-06T16:40:02.641Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-12-06T16:40:02.641Z"
+                    },
+                    "avatar_url": {}
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "User Creation route.",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "User Name.",
+            "required": true,
+            "in": "body",
+            "example": "José da Silva",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "José da Silva"
+                }
+              }
+            }
+          },
+          {
+            "name": "email",
+            "description": "User E-mail.",
+            "required": true,
+            "in": "body",
+            "example": "user@email.com",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user@email.com"
+                }
+              }
+            }
+          },
+          {
+            "name": "password",
+            "description": "User Password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User Successfully Created",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "example": "leo"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "leoneder@ymail.com"
+                    },
+                    "id": {
+                      "type": "string",
+                      "example": "cb5f060f-040c-4610-85e1-44c8812adde1"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "example": "2023-01-25T17:11:10.524Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2023-01-25T17:11:10.524Z"
+                    },
+                    "avatar_url": {}
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Email address already used."
+          }
+        }
+      }
+    },
+    "/avatar": {
+      "patch": {
+        "description": "Route for avatar upload.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Products": {
+      "get": {
+        "description": "Products List",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Show Products List",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "d0694213-6657-4950-bd5a-c0ff324290a2"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "https://quitandanaturale.com.br/wp-content/uploads/2021/07/abobora-menina.jpg"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Abóbora Menina"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "10.00"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 20
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2023-01-15T22:15:13.229Z"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2023-01-15T22:15:13.229Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Products/:id": {
+      "get": {
+        "description": "Product show",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "Product Id",
+            "required": true,
+            "in": "body",
+            "example": "d0694213-6657-4950-bd5a-c0ff324290a",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "d0694213-6657-4950-bd5a-c0ff324290a"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Show Selected Product",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "d0694213-6657-4950-bd5a-c0ff324290a2"
+                },
+                "avatar": {
+                  "type": "string",
+                  "example": "https://quitandanaturale.com.br/wp-content/uploads/2021/07/abobora-menina.jpg"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Abóbora Menina"
+                },
+                "price": {
+                  "type": "string",
+                  "example": "10.00"
+                },
+                "quantity": {
+                  "type": "number",
+                  "example": 20
+                },
+                "created_at": {
+                  "type": "string",
+                  "example": "2023-01-15T22:15:13.229Z"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2023-01-15T22:15:13.229Z"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "description": "Product Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "User id.",
+            "required": true,
+            "in": "body",
+            "example": "3a3728a5-b880-47ad-ba8e-794f78c5d286",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "3a3728a5-b880-47ad-ba8e-794f78c5d286"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Products/": {
+      "post": {
+        "description": "Product Add",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "Produt Name.",
+            "required": true,
+            "in": "body",
+            "example": "Abóbora",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Abóbora"
+                }
+              }
+            }
+          },
+          {
+            "name": "price",
+            "description": "Produt price.",
+            "required": true,
+            "in": "body",
+            "example": "2.4",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "price": {
+                  "type": "number",
+                  "example": 2.4
+                }
+              }
+            }
+          },
+          {
+            "name": "quantity",
+            "description": "Produt qauntity.",
+            "required": true,
+            "in": "body",
+            "example": "5",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "qauntity": {
+                  "type": "number",
+                  "example": 5
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "Product Add",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "Produt Name.",
+            "required": true,
+            "in": "body",
+            "example": "Abóbora",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Abóbora"
+                }
+              }
+            }
+          },
+          {
+            "name": "price",
+            "description": "Produt price.",
+            "required": true,
+            "in": "body",
+            "example": "2.4",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "price": {
+                  "type": "number",
+                  "example": 2.4
+                }
+              }
+            }
+          },
+          {
+            "name": "quantity",
+            "description": "Produt qauntity.",
+            "required": true,
+            "in": "body",
+            "example": "5",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "qauntity": {
+                  "type": "number",
+                  "example": 5
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/password/forget": {
+      "post": {
+        "description": "Password forgot route.",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "User E-mail.",
+            "required": true,
+            "in": "body",
+            "example": "user@email.com",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user@email.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/password/reset": {
+      "post": {
+        "description": "Password reset route.",
+        "parameters": [
+          {
+            "name": "token",
+            "description": "User token",
+            "required": true,
+            "in": "body",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ2ODcxMTQsImV4cCI6MTY3NDc3MzUxNCwic3ViIjoiNTc1YjE4MDYtZGI1OC00ZTk3LTg5MTgtMmRkOWZiY2M2OTkwIn0.4itnQDuxUE-7vOTcYuLjbZBZzMFM0XRDW1k3u2QC88U",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ2ODcxMTQsImV4cCI6MTY3NDc3MzUxNCwic3ViIjoiNTc1YjE4MDYtZGI1OC00ZTk3LTg5MTgtMmRkOWZiY2M2OTkwIn0.4itnQDuxUE-7vOTcYuLjbZBZzMFM0XRDW1k3u2QC88U"
+                }
+              }
+            }
+          },
+          {
+            "name": "password",
+            "description": "User new password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          },
+          {
+            "name": "password_confirmation",
+            "description": "User new password confirmation.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/Profile": {
+      "get": {
+        "description": "Route for user profiles.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "description": "Route for user update password.",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "User name.",
+            "required": true,
+            "in": "body",
+            "example": "José da Silva",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "José da Silva"
+                }
+              }
+            }
+          },
+          {
+            "name": "email",
+            "description": "User E-mail.",
+            "required": true,
+            "in": "body",
+            "example": "user@email.com",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user@email.com"
+                }
+              }
+            }
+          },
+          {
+            "name": "old_Password",
+            "description": "User old password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          },
+          {
+            "name": "password",
+            "description": "User new password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          },
+          {
+            "name": "password_confirmation",
+            "description": "User new password confirmation.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "User not found."
+          },
+          "402": {
+            "description": "There is already one user with this email."
+          },
+          "403": {
+            "description": "Old password is required."
+          },
+          "404": {
+            "description": "Old password does not match."
+          }
+        }
+      }
+    },
+    "/sessions": {
+      "post": {
+        "description": "User Authentication",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "User E-mail.",
+            "required": true,
+            "in": "body",
+            "example": "user@email.com",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "user@email.com"
+                }
+              }
+            }
+          },
+          {
+            "name": "password",
+            "description": "User Password.",
+            "required": true,
+            "in": "body",
+            "example": "kdlkdlf193",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "password": {
+                  "type": "string",
+                  "example": "kdlkdlf193"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully login",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "575b1806-db58-4e97-8918-2dd9fbcc6990"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "username"
+                    },
+                    "email": {
+                      "type": "string",
+                      "example": "user@gmail.com"
+                    },
+                    "avatar": {},
+                    "created_at": {
+                      "type": "string",
+                      "example": "2022-12-06T16:40:02.641Z"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "example": "2022-12-06T16:40:02.641Z"
+                    },
+                    "avatar_url": {}
+                  }
+                },
+                "token": {
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ2ODcxMTQsImV4cCI6MTY3NDc3MzUxNCwic3ViIjoiNTc1YjE4MDYtZGI1OC00ZTk3LTg5MTgtMmRkOWZiY2M2OTkwIn0.4itnQDuxUE-7vOTcYuLjbZBZzMFM0XRDW1k3u2QC88U"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect email/password combination."
+          }
+        }
+      }
+    }
+  }
+}
