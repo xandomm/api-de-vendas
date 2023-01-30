@@ -10,6 +10,7 @@ import {
 
 import Customer from '@modules/customers/typeorm/entities/Customer';
 import OrdersProducts from './OrdersProducts';
+import Address from './Address';
 
 @Entity('orders')
 class Order {
@@ -19,6 +20,10 @@ class Order {
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
+
+  @ManyToOne(() => Address)
+  @JoinColumn({ name: 'address_id' })
+  address: Address;
 
   @OneToMany(() => OrdersProducts, order_products => order_products.order, {
     cascade: true,

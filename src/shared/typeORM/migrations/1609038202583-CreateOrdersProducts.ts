@@ -30,6 +30,11 @@ export class CreateOrdersProducts1609038202583 implements MigrationInterface {
             default: 'now()',
           },
           {
+            name: 'address_id',
+            type: 'uuid',
+            isNullable: true,
+          },
+          {
             name: 'updated_at',
             type: 'timestamp',
             default: 'now()',
