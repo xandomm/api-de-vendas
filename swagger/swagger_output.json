@@ -14,40 +14,7 @@
     "/users": {
       "get": {
         "description": "Users List.",
-        "parameters": [
-          {
-            "name": "email",
-            "description": "User E-mail.",
-            "required": true,
-            "in": "body",
-            "example": "user@email.com",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User Password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
-                  "type": "string",
-                  "example": "kdlkdlf193"
-                }
-              }
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "Users List",
@@ -90,49 +57,24 @@
         }
       },
       "post": {
-        "description": "User Creation route.",
+        "description": "Users create.",
         "parameters": [
           {
-            "name": "name",
-            "description": "User Name.",
+            "name": "user",
+            "description": "User create",
             "required": true,
             "in": "body",
-            "example": "José da Silva",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "José da Silva"
-                }
-              }
-            }
-          },
-          {
-            "name": "email",
-            "description": "User E-mail.",
-            "required": true,
-            "in": "body",
-            "example": "user@email.com",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                  "example": "user"
+                },
+                "email": {
                   "type": "string",
                   "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User Password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"
@@ -196,6 +138,198 @@
         }
       }
     },
+    "/customers": {
+      "get": {
+        "description": "Customer show route",
+        "parameters": [
+          {
+            "name": "Customers",
+            "description": "Show customer by id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "bc455857-7280-4d61-84f9-3e4b8ed466ac"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "Create new customer",
+        "parameters": [
+          {
+            "name": "Customers",
+            "description": "Create new customer",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete customer",
+        "parameters": [
+          {
+            "name": "Customers",
+            "description": "Delete customer by id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "bc455857-7280-4d61-84f9-3e4b8ed466ac"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/customers/:id": {
+      "put": {
+        "description": "Update customer",
+        "parameters": [
+          {
+            "name": "Customers",
+            "description": "Update customer",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@teste.com"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "description": "Orders show route",
+        "parameters": [
+          {
+            "name": "Orders",
+            "description": "Show order by id",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "bc455857-7280-4d61-84f9-3e4b8ed466ac"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "orders ids list",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "bc455857-7280-4d61-84f9-3e4b8ed466ac"
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "Create order route",
+        "parameters": [
+          {
+            "name": "Orders",
+            "description": "create new order",
+            "required": true,
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "customer_id": {
+                  "type": "string",
+                  "example": "bc455857-7280-4d61-84f9-3e4b8ed466ac"
+                },
+                "products": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "example": "9ced9f7a-e062-4b6a-b9a8-f594cc27b948"
+                      },
+                      "quantity": {
+                        "type": "number",
+                        "example": 2
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/Products": {
       "get": {
         "description": "Products List",
@@ -219,8 +353,8 @@
                   "example": "Abóbora Menina"
                 },
                 "price": {
-                  "type": "string",
-                  "example": "10.00"
+                  "type": "number",
+                  "example": 10
                 },
                 "quantity": {
                   "type": "number",
@@ -252,7 +386,6 @@
             "description": "Product Id",
             "required": true,
             "in": "body",
-            "example": "d0694213-6657-4950-bd5a-c0ff324290a",
             "schema": {
               "type": "object",
               "properties": {
@@ -283,8 +416,8 @@
                   "example": "Abóbora Menina"
                 },
                 "price": {
-                  "type": "string",
-                  "example": "10.00"
+                  "type": "number",
+                  "example": 10
                 },
                 "quantity": {
                   "type": "number",
@@ -311,10 +444,9 @@
         "parameters": [
           {
             "name": "id",
-            "description": "User id.",
+            "description": "Product Delete.",
             "required": true,
             "in": "body",
-            "example": "3a3728a5-b880-47ad-ba8e-794f78c5d286",
             "schema": {
               "type": "object",
               "properties": {
@@ -342,45 +474,20 @@
             "description": "Produt Name.",
             "required": true,
             "in": "body",
-            "example": "Abóbora",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
                   "example": "Abóbora"
-                }
-              }
-            }
-          },
-          {
-            "name": "price",
-            "description": "Produt price.",
-            "required": true,
-            "in": "body",
-            "example": "2.4",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "price": {
-                  "type": "number",
-                  "example": 2.4
-                }
-              }
-            }
-          },
-          {
-            "name": "quantity",
-            "description": "Produt qauntity.",
-            "required": true,
-            "in": "body",
-            "example": "5",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "qauntity": {
-                  "type": "number",
-                  "example": 5
+                  "type": "string",
+                  "example": "2.4"
+                },
+                "quantity": {
+                  "type": "string",
+                  "example": "5"
                 }
               }
             }
@@ -393,52 +500,27 @@
         }
       },
       "put": {
-        "description": "Product Add",
+        "description": "Product Update",
         "parameters": [
           {
             "name": "name",
-            "description": "Produt Name.",
+            "description": "Produt update",
             "required": true,
             "in": "body",
-            "example": "Abóbora",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
                   "example": "Abóbora"
-                }
-              }
-            }
-          },
-          {
-            "name": "price",
-            "description": "Produt price.",
-            "required": true,
-            "in": "body",
-            "example": "2.4",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "price": {
-                  "type": "number",
-                  "example": 2.4
-                }
-              }
-            }
-          },
-          {
-            "name": "quantity",
-            "description": "Produt qauntity.",
-            "required": true,
-            "in": "body",
-            "example": "5",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "qauntity": {
-                  "type": "number",
-                  "example": 5
+                  "type": "string",
+                  "example": "2.4"
+                },
+                "quantity": {
+                  "type": "string",
+                  "example": "5"
                 }
               }
             }
@@ -456,7 +538,7 @@
         "description": "Password forgot route.",
         "parameters": [
           {
-            "name": "email",
+            "name": "password",
             "description": "User E-mail.",
             "required": true,
             "in": "body",
@@ -464,7 +546,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "email": {
                   "type": "string",
                   "example": "user@email.com"
                 }
@@ -484,47 +566,22 @@
         "description": "Password reset route.",
         "parameters": [
           {
-            "name": "token",
-            "description": "User token",
+            "name": "password",
+            "description": "reset user password",
             "required": true,
             "in": "body",
-            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ2ODcxMTQsImV4cCI6MTY3NDc3MzUxNCwic3ViIjoiNTc1YjE4MDYtZGI1OC00ZTk3LTg5MTgtMmRkOWZiY2M2OTkwIn0.4itnQDuxUE-7vOTcYuLjbZBZzMFM0XRDW1k3u2QC88U",
             "schema": {
               "type": "object",
               "properties": {
                 "token": {
                   "type": "string",
                   "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2NzQ2ODcxMTQsImV4cCI6MTY3NDc3MzUxNCwic3ViIjoiNTc1YjE4MDYtZGI1OC00ZTk3LTg5MTgtMmRkOWZiY2M2OTkwIn0.4itnQDuxUE-7vOTcYuLjbZBZzMFM0XRDW1k3u2QC88U"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User new password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"
-                }
-              }
-            }
-          },
-          {
-            "name": "password_confirmation",
-            "description": "User new password confirmation.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
+                },
+                "passowrd_confirmation": {
                   "type": "string",
                   "example": "kdlkdlf193"
                 }
@@ -541,11 +598,41 @@
     },
     "/Profile": {
       "get": {
-        "description": "Route for user profiles.",
+        "description": "Route for show user profile.",
         "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Show current user profile",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "example": "575b1806-db58-4e97-8918-2dd9fbcc6990"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "teste"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "teste@gmail.com"
+                },
+                "avatar": {},
+                "created_at": {
+                  "type": "string",
+                  "example": "2022-12-06T16:40:02.641Z"
+                },
+                "updated_at": {
+                  "type": "string",
+                  "example": "2022-12-06T16:40:02.641Z"
+                },
+                "avatar_url": {}
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
           }
         }
       },
@@ -553,79 +640,30 @@
         "description": "Route for user update password.",
         "parameters": [
           {
-            "name": "name",
-            "description": "User name.",
+            "name": "profile",
+            "description": "Update user password",
             "required": true,
             "in": "body",
-            "example": "José da Silva",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "José da Silva"
-                }
-              }
-            }
-          },
-          {
-            "name": "email",
-            "description": "User E-mail.",
-            "required": true,
-            "in": "body",
-            "example": "user@email.com",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                  "example": "user"
+                },
+                "email": {
                   "type": "string",
                   "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "old_Password",
-            "description": "User old password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
+                "old_password": {
+                  "type": "string",
+                  "example": "sfdfdfs223"
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User new password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
-                  "type": "string",
-                  "example": "kdlkdlf193"
-                }
-              }
-            }
-          },
-          {
-            "name": "password_confirmation",
-            "description": "User new password confirmation.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
+                },
+                "passowrd_confirmation": {
                   "type": "string",
                   "example": "kdlkdlf193"
                 }
@@ -657,30 +695,17 @@
         "description": "User Authentication",
         "parameters": [
           {
-            "name": "email",
-            "description": "User E-mail.",
+            "name": "user",
+            "description": "User authentication",
             "required": true,
             "in": "body",
-            "example": "user@email.com",
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "email": {
                   "type": "string",
                   "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User Password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"

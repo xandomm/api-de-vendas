@@ -15,7 +15,7 @@ productsRouter.get('/',
         "id": "d0694213-6657-4950-bd5a-c0ff324290a2",
         "avatar": "https://quitandanaturale.com.br/wp-content/uploads/2021/07/abobora-menina.jpg",
         "name": "Abóbora Menina",
-        "price": "10.00",
+        "price": 10.00,
         "quantity": 20,
         "created_at": "2023-01-15T22:15:13.229Z",
         "updated_at": "2023-01-15T22:15:13.229Z"
@@ -35,7 +35,6 @@ productsRouter.get(
    type: 'string',
    required: true,
    in: 'body',
-   example: 'd0694213-6657-4950-bd5a-c0ff324290a',
    schema: {id: "d0694213-6657-4950-bd5a-c0ff324290a",}
   }
 
@@ -45,7 +44,7 @@ productsRouter.get(
         "id": "d0694213-6657-4950-bd5a-c0ff324290a2",
         "avatar": "https://quitandanaturale.com.br/wp-content/uploads/2021/07/abobora-menina.jpg",
         "name": "Abóbora Menina",
-        "price": "10.00",
+        "price": 10.00,
         "quantity": 20,
         "created_at": "2023-01-15T22:15:13.229Z",
         "updated_at": "2023-01-15T22:15:13.229Z"
@@ -71,29 +70,14 @@ productsRouter.post(
    type: 'string',
    required: true,
    in: 'body',
-   example: 'Abóbora',
-   schema: {name: "Abóbora",}
+   schema: {
+    name: "Abóbora",
+    price: "2.4",
+    quantity: "5"
+   }
   }
-
-  #swagger.parameters['price'] = {
-   description: 'Produt price.',
-   type: 'float',
-   required: true,
-   in: 'body',
-   example: '2.4',
-   schema: {price: 2.4,}
-  }
-
-  #swagger.parameters['quantity'] = {
-   description: 'Produt qauntity.',
-   type: 'integer',
-   required: true,
-   in: 'body',
-   example: '5',
-   schema: {qauntity: 5,}
-  }
-
   */
+
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -107,33 +91,18 @@ productsRouter.post(
 productsRouter.put(
   '/:id',
   /*
-  #swagger.description = 'Product Add'
+  #swagger.description = 'Product Update'
   #swagger.path = '/Products/'
   #swagger.parameters['name'] = {
-   description: 'Produt Name.',
+   description: 'Produt update',
    type: 'string',
    required: true,
    in: 'body',
-   example: 'Abóbora',
-   schema: {name: "Abóbora",}
-  }
-
-  #swagger.parameters['price'] = {
-   description: 'Produt price.',
-   type: 'float',
-   required: true,
-   in: 'body',
-   example: '2.4',
-   schema: {price: 2.4,}
-  }
-
-  #swagger.parameters['quantity'] = {
-   description: 'Produt qauntity.',
-   type: 'integer',
-   required: true,
-   in: 'body',
-   example: '5',
-   schema: {qauntity: 5,}
+   schema: {
+    name: "Abóbora",
+    price: "2.4",
+    quantity: "5"
+   }
   }
 
   */
@@ -156,12 +125,11 @@ productsRouter.delete(
   #swagger.description = 'Product Delete'
   #swagger.path = '/Products/:id'
    #swagger.parameters['id'] = {
-   description: 'User id.',
+   description: 'Product Delete.',
    type: 'string',
    required: true,
    in: 'body',
-   example: '3a3728a5-b880-47ad-ba8e-794f78c5d286',
-   schema: {id: '3a3728a5-b880-47ad-ba8e-794f78c5d286',}
+      schema: {id: '3a3728a5-b880-47ad-ba8e-794f78c5d286',}
   }
   */
   celebrate({

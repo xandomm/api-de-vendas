@@ -17,36 +17,8 @@ usersRouter.get('/',
   #swagger.description = 'Users List.'
   */
 
-/*
+  /*
  #swagger.path = '/users'
- #swagger.parameters['email'] = {
-    description: 'teste',
-    type: 'string',
-    required: true,
-    in: 'body',
-    example: 'teste@email.com',
-    schema: {name: "user@email.com"}
-  }
-
-
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
-  type: 'string',
-  required: true,
-  in: 'body',
-  example: 'user@email.com',
-  schema: {name: "user@email.com"}
-  }
-
- #swagger.parameters['password'] = {
-   description: 'User Password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
-  }
-
  #swagger.responses[200] = {
 	description: 'Users List',
     schema: {
@@ -67,36 +39,20 @@ isAuthenticated, usersController.index);
 
 usersRouter.post(
   '/',
+
   /*
-  #swagger.description = 'User Creation route.'
-
- #swagger.path = '/users'
-#swagger.parameters['name'] = {
-	description: 'User Name.',
+  #swagger.path = '/users'
+  #swagger.description = 'Users create.'
+  #swagger.parameters['user'] = {
+    description: 'User create',
     type: 'string',
     required: true,
     in: 'body',
-    example: 'José da Silva',
-    schema: {name: "José da Silva",}
-
-  }
-
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
-    type: 'string',
-    required: true,
-    in: 'body',
-    example: 'user@email.com',
-    schema: {name: "user@email.com",}
-  }
-
- #swagger.parameters['password'] = {
-   description: 'User Password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
+    schema: {
+      name: "user",
+      email: "user@email.com",
+      password: "kdlkdlf193",
+    }
   }
 
  #swagger.responses[200] = {

@@ -10,8 +10,21 @@ profileRouter.use(isAuthenticated);
 
 profileRouter.get('/',
 /*
-#swagger.description = 'Route for user profiles.'
+#swagger.description = 'Route for show user profile.'
  #swagger.path = '/Profile'
+
+ #swagger.responses[200] = {
+	description: 'Show current user profile',
+  schema: {
+   "id": "575b1806-db58-4e97-8918-2dd9fbcc6990",
+   "name": "teste",
+   "email": "teste@gmail.com",
+   "avatar": null,
+   "created_at": "2022-12-06T16:40:02.641Z",
+   "updated_at": "2022-12-06T16:40:02.641Z",
+   "avatar_url": null
+   }
+  }
 
 */
 profileController.show);
@@ -20,52 +33,20 @@ profileController.show);
 profileRouter.put(
   '/',
   /*
- #swagger.description = 'Route for user update password.'
- #swagger.path = '/Profile'
- #swagger.parameters['name'] = {
-	description: 'User name.',
+  #swagger.description = 'Route for user update password.'
+  #swagger.path = '/Profile'
+  #swagger.parameters['profile'] = {
+    description: 'Update user password',
     type: 'string',
     required: true,
     in: 'body',
-    example: 'José da Silva',
-    schema: {name: "José da Silva",}
-
-  }
-
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
-    type: 'string',
-    required: true,
-    in: 'body',
-    example: 'user@email.com',
-    schema: {name: "user@email.com",}
-  }
-
- #swagger.parameters['old_Password'] = {
-   description: 'User old password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
-  }
-
-  #swagger.parameters['password'] = {
-   description: 'User new password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
-  }
-
-  #swagger.parameters['password_confirmation'] = {
-   description: 'User new password confirmation.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
+    schema: {
+      name: "user",
+      email: "user@email.com",
+      old_password: "sfdfdfs223",
+      password: "kdlkdlf193",
+      passowrd_confirmation: "kdlkdlf193",
+    }
   }
 
   #swagger.responses[401] = {

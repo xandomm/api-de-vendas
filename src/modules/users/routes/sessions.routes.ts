@@ -7,29 +7,21 @@ const sessionsController = new SessionsController();
 
 sessionsRouter.post(
   '/',
-  /*
-  #swagger.description = 'User Authentication'
-  #swagger.path = '/sessions'
-*/
-
 /*
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
+   #swagger.description = 'User Authentication'
+   #swagger.path = '/sessions'
+   #swagger.parameters['user'] = {
+    description: 'User authentication',
     type: 'string',
     required: true,
     in: 'body',
-    example: 'user@email.com',
-    schema: {name: "user@email.com",}
+
+    schema: {
+      email: "user@email.com",
+      password: "kdlkdlf193",
+    }
   }
 
- #swagger.parameters['password'] = {
-   description: 'User Password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
-  }
 
   #swagger.responses[200] = {
 	description: 'Successfully login',
