@@ -16,30 +16,22 @@
         "description": "Users List.",
         "parameters": [
           {
-            "name": "email",
-            "description": "User E-mail.",
+            "name": "user",
+            "description": "teste",
             "required": true,
             "in": "body",
-            "example": "user@email.com",
+            "example": "teste@email.com",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string",
+                  "example": "user"
+                },
+                "email": {
+                  "type": "string",
                   "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User Password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"
@@ -93,7 +85,7 @@
         "description": "User Creation route.",
         "parameters": [
           {
-            "name": "name",
+            "name": "user",
             "description": "User Name.",
             "required": true,
             "in": "body",
@@ -103,36 +95,12 @@
               "properties": {
                 "name": {
                   "type": "string",
-                  "example": "José da Silva"
-                }
-              }
-            }
-          },
-          {
-            "name": "email",
-            "description": "User E-mail.",
-            "required": true,
-            "in": "body",
-            "example": "user@email.com",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                  "example": "user"
+                },
+                "email": {
                   "type": "string",
                   "example": "user@email.com"
-                }
-              }
-            }
-          },
-          {
-            "name": "password",
-            "description": "User Password.",
-            "required": true,
-            "in": "body",
-            "example": "kdlkdlf193",
-            "schema": {
-              "type": "object",
-              "properties": {
+                },
                 "password": {
                   "type": "string",
                   "example": "kdlkdlf193"

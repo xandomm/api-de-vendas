@@ -12,40 +12,28 @@ const usersAvatarController = new UserAvatarController();
 
 const upload = multer(uploadConfig.multer);
 
-usersRouter.get('/',
+usersRouter.get(
+  '/',
   /*
   #swagger.description = 'Users List.'
   */
 
-/*
+  /*
  #swagger.path = '/users'
- #swagger.parameters['email'] = {
+ #swagger.parameters['user'] = {
     description: 'teste',
     type: 'string',
     required: true,
     in: 'body',
     example: 'teste@email.com',
-    schema: {name: "user@email.com"}
+    schema: {
+      name: "user",
+      email: "user@email.com",
+      password: "kdlkdlf193",
+    }
   }
 
 
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
-  type: 'string',
-  required: true,
-  in: 'body',
-  example: 'user@email.com',
-  schema: {name: "user@email.com"}
-  }
-
- #swagger.parameters['password'] = {
-   description: 'User Password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
-  }
 
  #swagger.responses[200] = {
 	description: 'Users List',
@@ -63,7 +51,9 @@ usersRouter.get('/',
   }
 */
 
-isAuthenticated, usersController.index);
+  isAuthenticated,
+  usersController.index,
+);
 
 usersRouter.post(
   '/',
@@ -71,32 +61,18 @@ usersRouter.post(
   #swagger.description = 'User Creation route.'
 
  #swagger.path = '/users'
-#swagger.parameters['name'] = {
+#swagger.parameters['user'] = {
 	description: 'User Name.',
     type: 'string',
     required: true,
     in: 'body',
     example: 'José da Silva',
-    schema: {name: "José da Silva",}
+    schema: {
+      name: "user",
+      email: "user@email.com",
+      password: "kdlkdlf193",
+    }
 
-  }
-
-  #swagger.parameters['email'] = {
-	description: 'User E-mail.',
-    type: 'string',
-    required: true,
-    in: 'body',
-    example: 'user@email.com',
-    schema: {name: "user@email.com",}
-  }
-
- #swagger.parameters['password'] = {
-   description: 'User Password.',
-   type: 'string',
-   required: true,
-   in: 'body',
-   example: 'kdlkdlf193',
-   schema: {password: "kdlkdlf193",}
   }
 
  #swagger.responses[200] = {

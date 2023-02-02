@@ -9,6 +9,7 @@ interface IRequest {
   price: number;
   quantity: number;
   avatar?: string;
+  description?: string;
 }
 
 class CreateProductService {
@@ -17,6 +18,7 @@ class CreateProductService {
     price,
     quantity,
     avatar,
+    description,
   }: IRequest): Promise<Product> {
     const productsRepository = getCustomRepository(ProductRepository);
     const productExists = await productsRepository.findByName(name);
@@ -32,6 +34,7 @@ class CreateProductService {
       price,
       quantity,
       avatar,
+      description,
     });
 
     await redisCache.invalidate('api-vendas-PRODUCT_LIST');

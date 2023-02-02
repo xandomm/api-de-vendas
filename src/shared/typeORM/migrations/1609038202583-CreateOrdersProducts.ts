@@ -21,6 +21,11 @@ export class CreateOrdersProducts1609038202583 implements MigrationInterface {
             scale: 2,
           },
           {
+            name: 'avatar',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
             name: 'quantity',
             type: 'int',
           },

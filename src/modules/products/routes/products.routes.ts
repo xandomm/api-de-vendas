@@ -1,12 +1,18 @@
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
+import ProductAvatarController from '../controllers/ProductAvatarController';
+import uploadConfig from '@config/upload';
 import { celebrate, Joi, Segments } from 'celebrate';
+import multer from 'multer';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
-
-productsRouter.get('/',
-/*
+const productsAvatarController = new ProductAvatarController();
+const upload = multer(uploadConfig.multer);
+productsRouter.get(
+  '/',
+  /*
   #swagger.description = 'Products List'
   #swagger.path = '/Products'
   #swagger.responses[200] = {
@@ -23,7 +29,8 @@ productsRouter.get('/',
   }
 */
 
-productsController.index);
+  productsController.index,
+);
 
 productsRouter.get(
   '/:id',
@@ -150,6 +157,17 @@ productsRouter.put(
   productsController.update,
 );
 
+productsRouter.patch(
+  '/:id',
+  celebrate({
+    [Segments.PARAMS]: {
+      id: Joi.string().uuid().required(),
+    },
+  }),
+  isAuthenticated,
+  upload.single('avatar'),
+  productsAvatarController.update,
+);
 productsRouter.delete(
   '/:id',
   /*

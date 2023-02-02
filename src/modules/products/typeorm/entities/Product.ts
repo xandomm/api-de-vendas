@@ -17,6 +17,9 @@ class Product {
   avatar: string;
 
   @Column()
+  description: string;
+
+  @Column()
   name: string;
 
   @Column('decimal')
