@@ -3,8 +3,8 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "docker",
-  "database": "apivendas",
+  "password": "Leo102938",
+  "database": "postgres3",
   "entities": ["./dist/modules/**/typeorm/entities/*.js"],
   "migrations": [
     "./dist/shared/typeorm/migrations/*.js"

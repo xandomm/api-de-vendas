@@ -1,4 +1,5 @@
 import {
+  Column,
   CreateDateColumn,
   Entity,
   JoinColumn,
@@ -10,6 +11,7 @@ import {
 
 import Customer from '@modules/customers/typeorm/entities/Customer';
 import OrdersProducts from './OrdersProducts';
+import OrderAddress from './OrdersAdress';
 
 @Entity('orders')
 class Order {
@@ -24,6 +26,14 @@ class Order {
     cascade: true,
   })
   order_products: OrdersProducts[];
+
+  @OneToMany(() => OrderAddress, order_address => order_address.order, {
+    cascade: true,
+  })
+  address: OrderAddress;
+
+  @Column()
+  order_address: string;
 
   @CreateDateColumn()
   created_at: Date;

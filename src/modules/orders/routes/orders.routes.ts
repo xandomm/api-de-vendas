@@ -61,6 +61,7 @@ ordersRouter.post(
     [Segments.BODY]: {
       customer_id: Joi.string().uuid().required(),
       products: Joi.required(),
+      order_address: Joi.required(),
     },
   }),
   ordersController.create,
