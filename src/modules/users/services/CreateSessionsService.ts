@@ -5,21 +5,31 @@ import authConfig from '@config/auth';
 import { getCustomRepository } from 'typeorm';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
+import { Response } from 'express';
+
+const ACCESS_TOKEN_EXPIRATION_TIME = '15m';
+const REFRESH_TOKEN_EXPIRATION_TIME = '7d';
+const JWT_SECRET = 'secret';
+const REFRESH_TOKEN_SECRET = 'secret';
 authConfig.jwt.secret = 'secret';
 interface IRequest {
   email: string;
   password: string;
+  response: Response;
 }
 
 interface IResponse {
   user: User;
   token: string;
+  refresh_token: string;
+
 }
+
 
 class CreateSessionsService {
 
 
-  public async execute({ email, password }: IRequest): Promise<IResponse> {
+  public async execute({ email, password, response} : IRequest): Promise<IResponse> {
     const usersRepository = getCustomRepository(UsersRepository);
     const user = await usersRepository.findByEmail(email);
 
@@ -33,14 +43,23 @@ class CreateSessionsService {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
-    const token = sign({}, authConfig.jwt.secret, {
+
+    const token = sign({}, JWT_SECRET, {
       subject: user.id,
-      expiresIn: authConfig.jwt.expiresIn,
+      expiresIn: ACCESS_TOKEN_EXPIRATION_TIME,
     });
+
+    const refresh_token = sign({}, REFRESH_TOKEN_SECRET, {
+      subject: user.id,
+      expiresIn: REFRESH_TOKEN_EXPIRATION_TIME,
+    });
+
+    response.cookie('refreshToken', refresh_token, { httpOnly: true });
 
     return {
       user,
       token,
+      refresh_token,
     };
   }
 }

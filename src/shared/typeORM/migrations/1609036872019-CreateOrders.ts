@@ -15,6 +15,14 @@ export class CreateOrders1609036872019 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
+            name: 'order_address',
+            type: 'varchar',
+          },
+          {
+            name: 'order_status',
+            type: 'varchar',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
