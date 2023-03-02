@@ -1,27 +1,26 @@
-import { Exclude } from 'class-transformer';
 import {
-
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('customers')
-class Customer {
+import Order from './Order';
+
+@Entity('order_address')
+class OrdersAdress {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
-  name: string;
+  @ManyToOne(() => Order, order => order.order_address)
+  @JoinColumn({ name: 'order_id' })
+  order: Order;
 
   @Column()
-  email: string;
-
-  @Column()
-  @Exclude()
-  password: string;
+  order_address: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -30,4 +29,4 @@ class Customer {
   updated_at: Date;
 }
 
-export default Customer;
+export default OrdersAdress;

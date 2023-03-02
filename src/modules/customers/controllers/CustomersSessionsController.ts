@@ -1,16 +1,15 @@
 import { Request, Response } from 'express';
-import CreateSessionsService from '../services/CreateSessionsService';
+import CreateCustomersSessionsService from '../services/CreateCustomersSessionsService';
 import { instanceToInstance } from 'class-transformer';
 import RefreshTokenService from '../../../shared/http/middlewares/RefreshTokenService';
-import { Console } from 'console';
 
-export default class SessionsController {
+export default class CustomersSessionsController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, password } = request.body;
 
-    const createSession = new CreateSessionsService();
+    const createCustomersSession = new CreateCustomersSessionsService();
 
-    const user = await createSession.execute({
+    const user = await createCustomersSession.execute({
       email,
       password,
       response,

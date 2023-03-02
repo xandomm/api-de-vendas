@@ -3,8 +3,8 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
 import { getCustomRepository } from 'typeorm';
-import User from '../typeorm/entities/User';
-import UsersRepository from '../typeorm/repositories/UsersRepository';
+import Customer from '../typeorm/entities/Customer';
+import CustomersRepository from '../typeorm/repositories/CustomersRepository';
 import { Response } from 'express';
 
 const ACCESS_TOKEN_EXPIRATION_TIME = '15m';
@@ -19,25 +19,25 @@ interface IRequest {
 }
 
 interface IResponse {
-  user: User;
+  customer: Customer;
   token: string;
   refresh_token: string;
 
 }
 
 
-class CreateSessionsService {
+class CreateCustomersSessionsService {
 
 
   public async execute({ email, password, response} : IRequest): Promise<IResponse> {
-    const usersRepository = getCustomRepository(UsersRepository);
-    const user = await usersRepository.findByEmail(email);
+    const customersRepository = getCustomRepository(CustomersRepository);
+    const customer = await customersRepository.findByEmail(email);
 
-    if (!user) {
+    if (!customer) {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
-    const passwordConfirmed = await compare(password, user.password);
+    const passwordConfirmed = compare(password, customer.password);
 
     if (!passwordConfirmed) {
       throw new AppError('Incorrect email/password combination.', 401);
@@ -45,23 +45,23 @@ class CreateSessionsService {
 
 
     const token = sign({}, JWT_SECRET, {
-      subject: user.id,
+      subject: customer.id,
       expiresIn: ACCESS_TOKEN_EXPIRATION_TIME,
     });
 
     const refresh_token = sign({}, REFRESH_TOKEN_SECRET, {
-      subject: user.id,
+      subject: customer.id,
       expiresIn: REFRESH_TOKEN_EXPIRATION_TIME,
     });
 
     response.cookie('refreshToken', refresh_token, { httpOnly: true });
 
     return {
-      user,
+      customer,
       token,
       refresh_token,
     };
   }
 }
 
-export default CreateSessionsService;
+export default CreateCustomersSessionsService;
