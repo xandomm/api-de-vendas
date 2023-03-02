@@ -37,7 +37,7 @@ class CreateCustomersSessionsService {
       throw new AppError('Incorrect email/password combination.', 401);
     }
 
-    const passwordConfirmed = await compare(password, customer.password);
+    const passwordConfirmed = compare(password, customer.password);
 
     if (!passwordConfirmed) {
       throw new AppError('Incorrect email/password combination.', 401);

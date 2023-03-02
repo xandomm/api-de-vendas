@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import CreateCustomersSessionsService from '../services/CreateCustomersSessionsService';
 import { instanceToInstance } from 'class-transformer';
-import RefreshTokenService from '../../users/services/RefreshTokenService';
+import RefreshTokenService from '../../../shared/http/middlewares/RefreshTokenService';
 
 export default class CustomersSessionsController {
   public async create(request: Request, response: Response): Promise<Response> {

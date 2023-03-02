@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import CreateSessionsService from '../services/CreateSessionsService';
 import { instanceToInstance } from 'class-transformer';
-import RefreshTokenService from '../services/RefreshTokenService';
+import RefreshTokenService from '../../../shared/http/middlewares/RefreshTokenService';
 import { Console } from 'console';
 
 export default class SessionsController {
