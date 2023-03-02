@@ -6,10 +6,11 @@ import CustomersRepository from '../typeorm/repositories/CustomersRepository';
 interface IRequest {
   name: string;
   email: string;
+  password: string;
 }
 
 class CreateCustomerService {
-  public async execute({ name, email }: IRequest): Promise<Customer> {
+  public async execute({ name, email, password }: IRequest): Promise<Customer> {
     const customersRepository = getCustomRepository(CustomersRepository);
     const emailExists = await customersRepository.findByEmail(email);
 
@@ -20,6 +21,7 @@ class CreateCustomerService {
     const customer = customersRepository.create({
       name,
       email,
+      password,
     });
 
     await customersRepository.save(customer);

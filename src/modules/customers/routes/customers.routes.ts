@@ -6,7 +6,7 @@ import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 const customersRouter = Router();
 const customersController = new CustomersController();
 
-customersRouter.use(isAuthenticated);
+//customersRouter.use(isAuthenticated);
 
 customersRouter.get('/', customersController.index);
 
@@ -26,6 +26,7 @@ customersRouter.post(
     [Segments.BODY]: {
       name: Joi.string().required(),
       email: Joi.string().email().required(),
+      password: Joi.string().required(),
     },
   }),
   customersController.create,
