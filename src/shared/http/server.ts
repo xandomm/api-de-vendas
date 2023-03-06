@@ -7,12 +7,12 @@ import { errors } from 'celebrate';
 import { pagination } from 'typeorm-pagination';
 import routes from './routes';
 import AppError from '@shared/errors/AppError';
-import '@shared/typeorm';
 import uploadConfig from '@config/upload';
 import rateLimiter from '@shared/http/middlewares/rateLimiter';
+import { createConnection } from 'typeorm';
 
 const app = express();
-
+createConnection();
 app.use(cors());
 app.use(express.json());
 
