@@ -3,13 +3,13 @@
   "host": "localhost",
   "port": 5432,
   "username": "postgres",
-  "password": "docker",
-  "database": "apivendas",
-  "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+  "password": "Leo102938",
+  "database": "postgres3",
+  "entities": ["./src/modules/**/typeorm/entities/*.ts"],
   "migrations": [
-    "./dist/shared/typeorm/migrations/*.js"
+  "./src/shared/typeorm/migrations/*.ts"
   ],
   "cli": {
-    "migrationsDir": "./dist/shared/typeorm/migrations"
+  "migrationsDir": "./src/shared/typeorm/migrations"
   }
-}
+  }
