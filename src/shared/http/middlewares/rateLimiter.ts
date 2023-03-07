@@ -11,7 +11,7 @@ export default async function rateLimiter(
     const redisClient = new Redis({
       //host: process.env.REDIS_HOST,
 
-      host: 'redis://red-cg2unao2qv24hdmtf7t0',
+      host: 'red-cg2unao2qv24hdmtf7t0',
       //port: Number(process.env.REDIS_PORT),
       port: Number(6379),
       password: process.env.REDIS_PASS || undefined,
