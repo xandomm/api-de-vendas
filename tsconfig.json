@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "target": "es5",                     
-    "module": "commonjs",                
-    "lib": ["es6"],                      
-    "allowJs": true,                    
-    "outDir": "build",                   
-    "rootDir": "src",                    
-
-
-    "strict": true,                      
-    "noImplicitAny": true,               
-    "strictPropertyInitialization": false, 
-
-    "baseUrl": "./",                     
+    "experimentalDecorators": true,
+    "target": "es5",
+    "module": "es6",
+    "lib": ["es6"],
+    "allowJs": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictPropertyInitialization": false,
+    "baseUrl": "./",
     "paths": {
       "@config/*": [
         "src/config/*"
@@ -23,18 +21,18 @@
       "@shared/*": [
         "src/shared/*"
       ]
-    },                           
+    },
     "typeRoots": [
       "@types",
       "./node_modules/@types"
-    ],                     
-    "esModuleInterop": true            
+    ],
+    "esModuleInterop": true
   },
   "include": [
-    "./src/**/*"                          
+    "./src/**/*"
   ],
   "exclude": [
-    "node_modules",                  
-    "**/*.spec.ts"                      
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

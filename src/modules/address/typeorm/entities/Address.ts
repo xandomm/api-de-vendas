@@ -7,7 +7,6 @@ import {
 } from 'typeorm';
 
 @Entity('addresses')
-
 class Address {
   @PrimaryGeneratedColumn('uuid')
   id: string;
