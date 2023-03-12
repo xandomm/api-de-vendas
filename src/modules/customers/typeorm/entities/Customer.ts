@@ -19,6 +19,9 @@ class Customer {
   @Column()
   email: string;
 
+  @UpdateDateColumn()
+  phone_number: string;
+
   @Column()
   @Exclude()
   password: string;
@@ -28,6 +31,7 @@ class Customer {
 
   @UpdateDateColumn()
   updated_at: Date;
-}
+
+
 
 export default Customer;
