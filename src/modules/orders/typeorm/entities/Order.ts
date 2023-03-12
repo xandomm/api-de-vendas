@@ -38,6 +38,9 @@ class Order {
   @Column()
   order_status: string;
 
+  @Column()
+  payment_method: string;
+
   @CreateDateColumn()
   created_at: Date;
 
