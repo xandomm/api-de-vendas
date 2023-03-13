@@ -12,6 +12,8 @@ interface IRequest {
   customer: Customer;
   products: IProduct[];
   order_address: string;
+  order_status: string;
+  payment_method: string;
 }
 
 @EntityRepository(Order)
@@ -24,12 +26,14 @@ class OrdersRepository extends Repository<Order> {
     return order;
   }
 
-  public async createOrder({ customer, products, order_address, order_status }: IRequest): Promise<Order> {
+  public async createOrder({ customer, products, order_address, order_status,  payment_method }: IRequest): Promise<Order> {
     const order = this.create({
-      customer,
+      customer: customer,
       order_products: products,
       order_address: order_address,
-      order_status,
+      order_status: order_status,
+      payment_method: payment_method,
+
     });
 
     await this.save(order);
