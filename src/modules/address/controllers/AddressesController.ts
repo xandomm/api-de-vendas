@@ -29,7 +29,7 @@ export default class AddressesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { nearby_address, address } = request.body;
+    const { cep, street, number, complement, city, neighborhood } = request.body;
     const authHeader = request.headers.authorization;
 
     const createAddress = new CreateAddresseservice();
@@ -40,7 +40,15 @@ export default class AddressesController {
 
     const user_id = decodedToken.sub;
 
-    const addr = await createAddress.execute({user_id, nearby_address, address });
+    const addr = await createAddress.execute({
+      user_id,
+      cep,
+      street,
+      number,
+      complement,
+      city,
+      neighborhood,
+    });
 
     return response.json(addr);
   }
