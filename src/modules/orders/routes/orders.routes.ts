@@ -63,6 +63,7 @@ ordersRouter.post(
       products: Joi.required(),
       order_address: Joi.required(),
       order_status: Joi.required(),
+      payment_method: Joi.required(),
     },
   }),
   ordersController.create,
