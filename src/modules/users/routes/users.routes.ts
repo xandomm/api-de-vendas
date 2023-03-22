@@ -13,7 +13,7 @@ const usersAvatarController = new UserAvatarController();
 const upload = multer(uploadConfig.multer);
 
 usersRouter.get('/', isAuthenticated, usersController.index);
-
+// rota '/profile'
 usersRouter.post(
   '/',
   isAuthenticated,
