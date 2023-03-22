@@ -1,11 +1,13 @@
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuth';
 
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.get('/', productsController.index);
+productsRouter.get('/', isCustomerAuthenticated, productsController.index);
 
 productsRouter.get(
   '/:id',
@@ -19,6 +21,7 @@ productsRouter.get(
 
 productsRouter.post(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -26,6 +29,7 @@ productsRouter.post(
       quantity: Joi.number().required(),
     },
   }),
+
   productsController.create,
 );
 

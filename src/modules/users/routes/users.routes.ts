@@ -16,6 +16,7 @@ usersRouter.get('/', isAuthenticated, usersController.index);
 
 usersRouter.post(
   '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),

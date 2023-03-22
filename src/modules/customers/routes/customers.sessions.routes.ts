@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import CustomersSessionsController from '../controllers/CustomersSessionsController';
-import  cookieParser  from 'cookie-parser';
+import cookieParser from 'cookie-parser';
 
 const customersSessionsRoute = Router();
 
@@ -20,8 +20,6 @@ customersSessionsRoute.post(
   customersSessionsController.create,
 );
 
-customersSessionsRoute.get('/refresh',
-  customersSessionsController.refresh,
-);
+customersSessionsRoute.get('/refresh', customersSessionsController.refresh);
 
 export default customersSessionsRoute;
