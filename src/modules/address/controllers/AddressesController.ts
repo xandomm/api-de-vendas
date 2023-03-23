@@ -29,7 +29,7 @@ export default class AddressesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { cep, street, number, complement, city, neighborhood } = request.body;
+    const { cep, street, number, complement, city, neighborhood, latitude, longitude } = request.body;
     const authHeader = request.headers.authorization;
 
     const createAddress = new CreateAddresseservice();
@@ -48,6 +48,8 @@ export default class AddressesController {
       complement,
       city,
       neighborhood,
+      latitude,
+      longitude,
     });
 
     return response.json(addr);

@@ -11,6 +11,8 @@ interface IRequest {
   complement: string;
   city: string;
   neighborhood: string;
+  latitude: string;
+  longitude: string;
 }
 
 class CreateAddresseService {
@@ -22,6 +24,8 @@ class CreateAddresseService {
     complement,
     city,
     neighborhood,
+    latitude,
+    longitude,
   }: IRequest): Promise<Address> {
     const addressesRepository = getCustomRepository(AddressRepository);
     const Address = addressesRepository.create({
@@ -32,6 +36,8 @@ class CreateAddresseService {
       complement,
       city,
       neighborhood,
+      latitude,
+      longitude,
     });
 
     await redisCache.invalidate('api-vendas-ADDRESS_LIST');

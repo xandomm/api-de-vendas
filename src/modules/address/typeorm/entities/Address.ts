@@ -32,6 +32,12 @@ class Address {
   @Column()
   neighborhood: string;
 
+  @Column()
+  latitude: string;
+
+  @Column()
+  longitude: string;
+
 
   @CreateDateColumn()
   created_at: Date;

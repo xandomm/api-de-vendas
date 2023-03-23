@@ -49,12 +49,15 @@ addressesRouter.post(
 
   celebrate({
     [Segments.BODY]: {
+      user_id: Joi.string(),
       cep: Joi.string(),
       street: Joi.string(),
       number: Joi.string(),
       complement: Joi.string(),
       city: Joi.string(),
       neighborhood: Joi.string(),
+      latitude: Joi.string(),
+      longitude: Joi.string(),
     },
   }),
   addressesController.create,

@@ -32,6 +32,6 @@ class Customer {
   @UpdateDateColumn()
   updated_at: Date;
 
-
+}
 
 export default Customer;
