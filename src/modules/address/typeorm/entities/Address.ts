@@ -38,7 +38,6 @@ class Address {
   @Column()
   longitude: string;
 
-
   @CreateDateColumn()
   created_at: Date;
 
