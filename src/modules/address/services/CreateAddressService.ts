@@ -5,6 +5,7 @@ import AddressRepository from '../typeorm/repositories/AddressesRepository';
 
 interface IRequest {
   user_id: string;
+  address: string;
   cep: string;
   street: string;
   number: string;
@@ -18,6 +19,7 @@ interface IRequest {
 class CreateAddresseService {
   public async execute({
     user_id,
+    address,
     cep,
     street,
     number,
@@ -30,6 +32,7 @@ class CreateAddresseService {
     const addressesRepository = getCustomRepository(AddressRepository);
     const Address = addressesRepository.create({
       user_id,
+      address,
       cep,
       street,
       number,

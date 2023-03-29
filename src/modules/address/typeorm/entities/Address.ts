@@ -15,6 +15,9 @@ class Address {
   user_id: string;
 
   @Column()
+  address: string;
+
+  @Column()
   cep: string;
 
   @Column()

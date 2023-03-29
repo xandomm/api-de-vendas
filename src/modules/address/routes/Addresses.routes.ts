@@ -57,6 +57,7 @@ addressesRouter.post(
   celebrate({
     [Segments.BODY]: {
       user_id: Joi.string(),
+      address: Joi.string(),
       cep: Joi.string(),
       street: Joi.string(),
       number: Joi.string(),

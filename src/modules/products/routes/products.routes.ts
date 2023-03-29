@@ -10,7 +10,6 @@ const productsController = new ProductsController();
 productsRouter.use(cookieParser());
 productsRouter.use(isAuthenticated);
 
-
 productsRouter.get('/', productsController.index);
 
 productsRouter.get(

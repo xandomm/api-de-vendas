@@ -14,14 +14,14 @@ export default class OrdersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { customer_id, products, order_address, order_status, payment_method } = request.body;
+    const { customer_id, products, address_id, order_status, payment_method } = request.body;
 
     const createOrder = new CreateOrderService();
 
     const order = await createOrder.execute({
       customer_id,
       products,
-      order_address,
+      address_id,
       order_status,
       payment_method,
     });
