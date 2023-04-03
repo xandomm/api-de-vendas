@@ -15,17 +15,32 @@ export class CreateAddresses1675901360703 implements MigrationInterface {
             default: 'uuid_generate_v4()',
           },
           {
-            name: 'user_id',
+            name: 'cep',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'address',
+            name: 'street',
             type: 'varchar',
             isNullable: true,
           },
           {
-            name: 'nearby_address',
+            name: 'number',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'complement',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'city',
+            type: 'varchar',
+            isNullable: true,
+          },
+          {
+            name: 'neighborhood',
             type: 'varchar',
             isNullable: true,
           },

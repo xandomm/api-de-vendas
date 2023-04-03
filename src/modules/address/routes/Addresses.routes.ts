@@ -1,11 +1,18 @@
 import { Router } from 'express';
 import AddressesController from '../controllers/AddressesController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import cookieParser from 'cookie-parser';
 
 const addressesRouter = Router();
 const addressesController = new AddressesController();
 
-addressesRouter.get('/',
+
+addressesRouter.use(cookieParser());
+addressesRouter.use(isAuthenticated);
+
+
+addressesRouter.get('/', isAuthenticated,
 
 addressesController.index);
 
@@ -32,7 +39,7 @@ addressesRouter.get(
 );
 
 addressesRouter.post(
-  '/',
+  '/', isAuthenticated,
   /*
   #swagger.description = 'address Add'
   #swagger.path = '/addresses/'
@@ -49,8 +56,16 @@ addressesRouter.post(
 
   celebrate({
     [Segments.BODY]: {
-      nearby_address: Joi.string(),
+      user_id: Joi.string(),
       address: Joi.string(),
+      cep: Joi.string(),
+      street: Joi.string(),
+      number: Joi.string(),
+      complement: Joi.string(),
+      city: Joi.string(),
+      neighborhood: Joi.string(),
+      latitude: Joi.string(),
+      longitude: Joi.string(),
     },
   }),
   addressesController.create,
@@ -58,7 +73,7 @@ addressesRouter.post(
 
 
 addressesRouter.delete(
-  '/:id',
+  '/:id', isAuthenticated,
   /*
   #swagger.description = 'address Delete'
   #swagger.path = '/addresses/:id'

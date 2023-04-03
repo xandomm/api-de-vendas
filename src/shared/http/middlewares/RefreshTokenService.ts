@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 const REFRESH_TOKEN_SECRET = "secret";
 const JWT_SECRET = "secret";
-const ACCESS_TOKEN_EXPIRATION_TIME = '15m';
+const ACCESS_TOKEN_EXPIRATION_TIME = '1m';
 interface IRefresh_token{
   refresh_token: string;
 }

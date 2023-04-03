@@ -15,10 +15,31 @@ class Address {
   user_id: string;
 
   @Column()
-  nearby_address: string;
+  address: string;
 
   @Column()
-  address: string;
+  cep: string;
+
+  @Column()
+  street: string;
+
+  @Column()
+  number: string;
+
+  @Column()
+  complement: string;
+
+  @Column()
+  city: string;
+
+  @Column()
+  neighborhood: string;
+
+  @Column()
+  latitude: string;
+
+  @Column()
+  longitude: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -11,7 +11,7 @@ const customersController = new CustomersController();
 customersRouter.get('/', customersController.index);
 
 customersRouter.get(
-  '/:id',
+  '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -35,7 +35,7 @@ customersRouter.post(
 );
 
 customersRouter.put(
-  '/:id',
+  '/:id', isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -49,7 +49,7 @@ customersRouter.put(
 );
 
 customersRouter.delete(
-  '/:id',
+  '/:id', isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),

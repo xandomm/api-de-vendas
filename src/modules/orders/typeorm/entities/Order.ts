@@ -27,13 +27,13 @@ class Order {
   })
   order_products: OrdersProducts[];
 
-  @OneToMany(() => OrderAddress, order_address => order_address.order, {
+  @OneToMany(() => OrderAddress, address_id => address_id.order, {
     cascade: true,
   })
   address: OrderAddress;
 
   @Column()
-  order_address: string;
+  address_id: string;
 
   @Column()
   order_status: string;
