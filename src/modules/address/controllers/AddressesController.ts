@@ -11,9 +11,20 @@ const jwt = require('jsonwebtoken');
 
 export default class AddressesController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const authHeader = request.headers.authorization;
+
+    const createAddress = new CreateAddresseservice();
+
+    const [, token] = authHeader.split(' ');
+
+    const decodedToken = jwt.verify(token, auth.jwt.secret);
+
+    const user_id = decodedToken.sub;
+
+
     const listAddresses = new ListAddressesService();
 
-    const addresses = await listAddresses.execute();
+    const addresses = await listAddresses.execute({ user_id });
 
     return response.json(addresses);
   }
