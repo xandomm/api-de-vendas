@@ -5,6 +5,11 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+enum address_type {
+  HOME = 'home',
+  WORK = 'work',
+  OTHER = 'other',
+}
 
 @Entity('addresses')
 class Address {
@@ -35,6 +40,16 @@ class Address {
   @Column()
   neighborhood: string;
 
+  @Column()
+  address_type: address_type;
+
+  //@Column({
+    //type: 'enum',
+    //enum: address_type,
+    //default: address_type.HOME,
+
+  //})
+  //format: address_type;
   @Column()
   latitude: string;
 

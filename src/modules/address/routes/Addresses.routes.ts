@@ -7,6 +7,11 @@ import cookieParser from 'cookie-parser';
 const addressesRouter = Router();
 const addressesController = new AddressesController();
 
+enum address_type{
+  HOME = 'home',
+  WORK = 'work',
+  OTHER = 'other',
+}
 
 addressesRouter.use(cookieParser());
 addressesRouter.use(isAuthenticated);
@@ -64,6 +69,7 @@ addressesRouter.post(
       complement: Joi.string(),
       city: Joi.string(),
       neighborhood: Joi.string(),
+      address_type: Joi.string().valid(...Object.values(address_type)),
       latitude: Joi.string(),
       longitude: Joi.string(),
     },

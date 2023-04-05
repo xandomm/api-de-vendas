@@ -12,6 +12,7 @@ interface IRequest {
   complement: string;
   city: string;
   neighborhood: string;
+  address_type: string;
   latitude: string;
   longitude: string;
 }
@@ -26,6 +27,7 @@ class CreateAddresseService {
     complement,
     city,
     neighborhood,
+    address_type,
     latitude,
     longitude,
   }: IRequest): Promise<Address> {
@@ -39,9 +41,12 @@ class CreateAddresseService {
       complement,
       city,
       neighborhood,
+      address_type,
       latitude,
       longitude,
     });
+
+
 
     await redisCache.invalidate('api-vendas-ADDRESS_LIST');
 
