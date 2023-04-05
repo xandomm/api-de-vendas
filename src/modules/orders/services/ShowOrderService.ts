@@ -6,6 +6,10 @@ import OrdersRepository from '../typeorm/repositories/OrdersRepository';
 interface IRequest {
   id: string;
 }
+interface IOrderList {
+  user_id: string;
+}
+
 
 class ShowOrderService {
   public async execute({ id }: IRequest): Promise<Order> {
@@ -18,6 +22,22 @@ class ShowOrderService {
     }
 
     return order;
+  }
+
+  public async list({ user_id }: IOrderList): Promise<Order> {
+    const ordersRepository = getCustomRepository(OrdersRepository);
+
+    const orders = await ordersRepository.find({
+      where: {
+        user_id,
+      },
+    });
+
+    if (!orders) {
+      throw new AppError('Order not found.');
+    }
+
+    return orders;
   }
 }
 

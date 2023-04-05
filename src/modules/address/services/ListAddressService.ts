@@ -4,7 +4,7 @@ import AddressRepository from '../typeorm/repositories/AddressesRepository';
 import redisCache from '@shared/cache/RedisCache';
 
 class ListAddressService {
-  public async execute(): Promise<Address[]> {
+  public async execute({user_id}): Promise<Address[]> {
     const addressesRepository = getCustomRepository(AddressRepository);
 
     let addresses = await redisCache.recover<Address[]>(
@@ -12,8 +12,7 @@ class ListAddressService {
     );
 
     if (!addresses) {
-      addresses = await addressesRepository.find();
-
+      addresses = await addressesRepository.findByUserId(user_id);
       await redisCache.save('api-vendas-ADDRESSES_LIST', addresses);
     }
 

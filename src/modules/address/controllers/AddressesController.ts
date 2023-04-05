@@ -11,9 +11,20 @@ const jwt = require('jsonwebtoken');
 
 export default class AddressesController {
   public async index(request: Request, response: Response): Promise<Response> {
+    const authHeader = request.headers.authorization;
+
+    const createAddress = new CreateAddresseservice();
+
+    const [, token] = authHeader.split(' ');
+
+    const decodedToken = jwt.verify(token, auth.jwt.secret);
+
+    const user_id = decodedToken.sub;
+
+
     const listAddresses = new ListAddressesService();
 
-    const addresses = await listAddresses.execute();
+    const addresses = await listAddresses.execute({ user_id });
 
     return response.json(addresses);
   }
@@ -29,7 +40,7 @@ export default class AddressesController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { nearby_address, address } = request.body;
+    const { address, cep, street, number, complement, city, neighborhood, address_type, latitude, longitude } = request.body;
     const authHeader = request.headers.authorization;
 
     const createAddress = new CreateAddresseservice();
@@ -40,7 +51,19 @@ export default class AddressesController {
 
     const user_id = decodedToken.sub;
 
-    const addr = await createAddress.execute({user_id, nearby_address, address });
+    const addr = await createAddress.execute({
+      user_id,
+      address,
+      cep,
+      street,
+      number,
+      complement,
+      city,
+      neighborhood,
+      address_type,
+      latitude,
+      longitude,
+    });
 
     return response.json(addr);
   }

@@ -2,13 +2,16 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import OrdersController from '../controllers/OrdersController';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import cookieParser from 'cookie-parser';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 
+ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
-ordersRouter.get('/:id',
+
+ordersRouter.get('/:id', isAuthenticated,
   /*
   #swagger.description = 'Orders show route'
   #swagger.path = '/orders'
@@ -36,7 +39,7 @@ ordersRouter.get('/:id',
 );
 
 ordersRouter.post(
-  '/',
+  '/', isAuthenticated,
   /*
   #swagger.description = 'Create order route'
   #swagger.path = '/orders'
@@ -61,8 +64,9 @@ ordersRouter.post(
     [Segments.BODY]: {
       customer_id: Joi.string().uuid().required(),
       products: Joi.required(),
-      order_address: Joi.required(),
+      address_id: Joi.required(),
       order_status: Joi.required(),
+      payment_method: Joi.required(),
     },
   }),
   ordersController.create,

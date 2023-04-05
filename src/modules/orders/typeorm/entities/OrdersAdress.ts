@@ -15,12 +15,12 @@ class OrdersAdress {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @ManyToOne(() => Order, order => order.order_address)
+  @ManyToOne(() => Order, order => order.address_id)
   @JoinColumn({ name: 'order_id' })
   order: Order;
 
   @Column()
-  order_address: string;
+  address_id: string;
 
   @CreateDateColumn()
   created_at: Date;
