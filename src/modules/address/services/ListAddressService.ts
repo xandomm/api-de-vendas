@@ -1,21 +1,18 @@
 import { getCustomRepository } from 'typeorm';
 import Address from '../typeorm/entities/Address';
 import AddressRepository from '../typeorm/repositories/AddressesRepository';
-import redisCache from '@shared/cache/RedisCache';
+import AppError from '@shared/errors/AppError';
 
 class ListAddressService {
-  public async execute({user_id}): Promise<Address[]> {
+  public async execute({ user_id }: { user_id: string }): Promise<Address[]> {
     const addressesRepository = getCustomRepository(AddressRepository);
 
-    let addresses = await redisCache.recover<Address[]>(
-      'api-vendas-ADDRESS_LIST',
-    );
-
+    const addresses:
+      | Address[]
+      | undefined = await addressesRepository.findByUserId(user_id);
     if (!addresses) {
-      addresses = await addressesRepository.findByUserId(user_id);
-      await redisCache.save('api-vendas-ADDRESSES_LIST', addresses);
+      throw new AppError('No addresses found ', 200);
     }
-
     return addresses;
   }
 }

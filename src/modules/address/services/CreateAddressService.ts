@@ -1,4 +1,3 @@
-import redisCache from '@shared/cache/RedisCache';
 import { getCustomRepository } from 'typeorm';
 import Address from '../typeorm/entities/Address';
 import AddressRepository from '../typeorm/repositories/AddressesRepository';
@@ -42,8 +41,6 @@ class CreateAddresseService {
       latitude,
       longitude,
     });
-
-    await redisCache.invalidate('api-vendas-ADDRESS_LIST');
 
     await addressesRepository.save(Address);
 

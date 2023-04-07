@@ -17,8 +17,6 @@ class DeleteAddressService {
       throw new AppError('Address not found.');
     }
 
-    await redisCache.invalidate('api-vendas-ADDRESS_LIST');
-
     await addressesRepository.remove(address);
   }
 }

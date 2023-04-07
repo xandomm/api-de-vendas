@@ -17,7 +17,7 @@ class AddressRepository extends Repository<Address> {
     return address;
   }
 
-  public async findByUserId(user_id: string): Promise<Address | undefined> {
+  public async findByUserId(user_id: string): Promise<Address[] | undefined> {
     const address = this.find({
       where: {
         user_id,
