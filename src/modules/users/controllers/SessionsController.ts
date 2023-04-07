@@ -19,14 +19,13 @@ export default class SessionsController {
     return response.json(instanceToInstance(user));
   }
 
-  public async refresh(request: Request, response: Response): Promise<Response> {
-
+  public async refresh(
+    request: Request,
+    response: Response,
+  ): Promise<Response> {
     const refresh_token = request.cookies.refreshToken;
     const refreshTokenService = new RefreshTokenService();
     const token = await refreshTokenService.refresh(refresh_token);
     return response.json(instanceToInstance(token));
   }
-
-
-
 }

@@ -1,13 +1,13 @@
+import { isAuthenticated } from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 import AddressesController from '../controllers/AddressesController';
 import { celebrate, Joi, Segments } from 'celebrate';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuth';
 
 const addressesRouter = Router();
 const addressesController = new AddressesController();
 
-addressesRouter.get('/',
-
-addressesController.index);
+addressesRouter.get('/', isAuthenticated, addressesController.index);
 
 addressesRouter.get(
   '/:id',
