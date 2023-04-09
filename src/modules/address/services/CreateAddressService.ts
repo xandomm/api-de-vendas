@@ -18,6 +18,14 @@ interface IRequest {
 }
 
 class CreateAddresseService {
+  public async verifyAddressType(): Promise<any> {
+    const addressesRepository = getCustomRepository(AddressRepository);
+    const hasHome = await addressesRepository.findByAddress_type("home");
+    const hasWork = await addressesRepository.findByAddress_type("work");
+    const hasOther = await addressesRepository.findByAddress_type("other");
+    return {hasHome, hasWork, hasOther}
+  }
+
   public async execute({
     user_id,
     address,
@@ -32,6 +40,10 @@ class CreateAddresseService {
     longitude,
   }: IRequest): Promise<Address> {
     const addressesRepository = getCustomRepository(AddressRepository);
+
+//    console.log(hasHome);
+
+
     const Address = addressesRepository.create({
       user_id,
       address,

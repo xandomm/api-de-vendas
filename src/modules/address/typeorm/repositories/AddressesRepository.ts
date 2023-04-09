@@ -27,6 +27,18 @@ class AddressRepository extends Repository<Address> {
     return address;
   }
 
+  public async findByAddress_type(address_type: string): Promise<Address | undefined> {
+    const address = await this.findOne({
+      where: {
+        address_type,
+      },
+    });
+
+    return address;
+  }
+
+
+
   public async findAllByIds(addresses: IFindAddresses[]): Promise<Address[]> {
     const addressIds = addresses.map(address => address.id);
 

@@ -11,9 +11,11 @@ const jwt = require('jsonwebtoken');
 
 export default class AddressesController {
   public async index(request: Request, response: Response): Promise<Response> {
+
     const authHeader = request.headers.authorization;
 
-    const createAddress = new CreateAddresseservice();
+    const createAddress = new CreateAddresseservice(request.body.address_type);
+
 
     const [, token] = authHeader.split(' ');
 
@@ -41,9 +43,16 @@ export default class AddressesController {
 
   public async create(request: Request, response: Response): Promise<Response> {
     const { address, cep, street, number, complement, city, neighborhood, address_type, latitude, longitude } = request.body;
+
     const authHeader = request.headers.authorization;
 
     const createAddress = new CreateAddresseservice();
+
+    const hasAddressTypes = await createAddress.verifyAddressType();
+
+    if (hasAddressTypes.hasHome && address_type=="home" ) return response.json("This customer already have a home address")
+    if (hasAddressTypes.hasWork && address_type=="work" ) return response.json("This customer already have a work address")
+    if (hasAddressTypes.hasOther && address_type=="other" ) return response.json("This customer already have a other address")
 
     const [, token] = authHeader.split(' ');
 
