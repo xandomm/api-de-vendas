@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import CustomersSessionsController from '../controllers/CustomersSessionsController';
-import  cookieParser  from 'cookie-parser';
+import cookieParser from 'cookie-parser';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 
 const customersSessionsRoute = Router();
 
@@ -20,7 +21,7 @@ customersSessionsRoute.post(
   customersSessionsController.create,
 );
 
-customersSessionsRoute.get('/refresh',
+customersSessionsRoute.get('/refresh', isCustomerAuthenticated,
   customersSessionsController.refresh,
 );
 

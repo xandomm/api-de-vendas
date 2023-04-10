@@ -2,6 +2,7 @@ import { Router } from 'express';
 import AddressesController from '../controllers/AddressesController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 import cookieParser from 'cookie-parser';
 
 const addressesRouter = Router();
@@ -22,7 +23,7 @@ addressesRouter.get('/', isAuthenticated,
 addressesController.index);
 
 addressesRouter.get(
-  '/:id',
+  '/:id', isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'address show'
   #swagger.path = '/addresses/:id'
@@ -44,7 +45,7 @@ addressesRouter.get(
 );
 
 addressesRouter.post(
-  '/', isAuthenticated,
+  '/', isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'address Add'
   #swagger.path = '/addresses/'
@@ -79,7 +80,7 @@ addressesRouter.post(
 
 
 addressesRouter.delete(
-  '/:id', isAuthenticated,
+  '/:id', isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'address Delete'
   #swagger.path = '/addresses/:id'

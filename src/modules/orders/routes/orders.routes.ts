@@ -2,7 +2,9 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import OrdersController from '../controllers/OrdersController';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 import cookieParser from 'cookie-parser';
+
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
@@ -10,8 +12,7 @@ const ordersController = new OrdersController();
 ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
-
-ordersRouter.get('/:id', isAuthenticated,
+ordersRouter.get('/:id', isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'Orders show route'
   #swagger.path = '/orders'
@@ -39,7 +40,7 @@ ordersRouter.get('/:id', isAuthenticated,
 );
 
 ordersRouter.post(
-  '/', isAuthenticated,
+  '/', isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'Create order route'
   #swagger.path = '/orders'

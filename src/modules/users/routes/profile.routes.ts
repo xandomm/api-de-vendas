@@ -10,7 +10,7 @@ const profileController = new ProfileController();
 profileRouter.use(cookieParser());
 profileRouter.use(isAuthenticated);
 
-profileRouter.get('/', profileController.show);
+profileRouter.get('/', isAuthenticated, profileController.show);
 
 profileRouter.put(
   '/', isAuthenticated,

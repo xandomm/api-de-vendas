@@ -3,17 +3,17 @@ import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import cookieParser from 'cookie-parser';
-
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 const productsRouter = Router();
 const productsController = new ProductsController();
 
 productsRouter.use(cookieParser());
 productsRouter.use(isAuthenticated);
 
-productsRouter.get('/', productsController.index);
+productsRouter.get('/', isAuthenticated || isCustomerAuthenticated, productsController.index);
 
 productsRouter.get(
-  '/:id',
+  '/:id', isAuthenticated || isCustomerAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
