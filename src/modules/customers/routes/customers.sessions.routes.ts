@@ -10,6 +10,7 @@ const customersSessionsController = new CustomersSessionsController();
 
 customersSessionsRoute.use(cookieParser());
 
+
 customersSessionsRoute.post(
   '/',
   celebrate({

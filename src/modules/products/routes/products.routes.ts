@@ -8,9 +8,9 @@ const productsRouter = Router();
 const productsController = new ProductsController();
 
 productsRouter.use(cookieParser());
-productsRouter.use(isAuthenticated);
+//productsRouter.use(isAuthenticated);
 
-productsRouter.get('/', isAuthenticated || isCustomerAuthenticated, productsController.index);
+productsRouter.get('/', productsController.index);
 
 productsRouter.get(
   '/:id', isAuthenticated || isCustomerAuthenticated,

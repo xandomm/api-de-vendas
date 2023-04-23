@@ -12,7 +12,8 @@ const ordersController = new OrdersController();
 ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
-ordersRouter.get('/:id', isAuthenticated || isCustomerAuthenticated,
+
+ordersRouter.get('/:id',
   /*
   #swagger.description = 'Orders show route'
   #swagger.path = '/orders'
@@ -40,7 +41,7 @@ ordersRouter.get('/:id', isAuthenticated || isCustomerAuthenticated,
 );
 
 ordersRouter.post(
-  '/', isAuthenticated || isCustomerAuthenticated,
+  '/',
   /*
   #swagger.description = 'Create order route'
   #swagger.path = '/orders'

@@ -10,7 +10,6 @@ interface IOrderList {
   user_id: string;
 }
 
-
 class ShowOrderService {
   public async execute({ id }: IRequest): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);

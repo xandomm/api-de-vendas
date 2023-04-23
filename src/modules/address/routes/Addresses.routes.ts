@@ -15,15 +15,15 @@ enum address_type{
 }
 
 addressesRouter.use(cookieParser());
-addressesRouter.use(isAuthenticated);
+//addressesRouter.use(isAuthenticated);
 
 
-addressesRouter.get('/', isAuthenticated,
+addressesRouter.get('/',
 
 addressesController.index);
 
 addressesRouter.get(
-  '/:id', isAuthenticated || isCustomerAuthenticated,
+  '/:id',
   /*
   #swagger.description = 'address show'
   #swagger.path = '/addresses/:id'
@@ -45,7 +45,7 @@ addressesRouter.get(
 );
 
 addressesRouter.post(
-  '/', isAuthenticated || isCustomerAuthenticated,
+  '/',
   /*
   #swagger.description = 'address Add'
   #swagger.path = '/addresses/'

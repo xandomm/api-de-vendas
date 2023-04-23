@@ -26,6 +26,17 @@ class OrdersRepository extends Repository<Order> {
     return order;
   }
 
+  public async findByUserId(user_id: string): Promise<Order | undefined> {
+    const order = this.find({
+      where: {
+        user_id,
+      },
+    });
+
+    return order;
+  }
+
+
   public async createOrder({ customer, products, address_id, order_status,  payment_method }: IRequest): Promise<Order> {
     const order = this.create({
       customer: customer,
@@ -39,6 +50,7 @@ class OrdersRepository extends Repository<Order> {
 
     return order;
   }
+
 }
 
 export default OrdersRepository;
