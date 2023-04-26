@@ -2,9 +2,18 @@ import { Request, Response } from 'express';
 import CreateOrderService from '../services/CreateOrderService';
 import ShowOrderService from '../services/ShowOrderService';
 import auth from '@config/auth';
+import ListOrdersService from '../services/ListOrdersService';
 const jwt = require('jsonwebtoken');
 
 export default class OrdersController {
+  public async index(request: Request, response: Response): Promise<Response> {
+    const listOrders = new ListOrdersService();
+
+    const orders = await listOrders.execute();
+
+    return response.json(orders);
+  }
+
   public async show(request: Request, response: Response): Promise<Response> {
     //const { id } = request.params;
     const authHeader = request.headers.authorization;

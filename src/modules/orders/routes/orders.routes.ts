@@ -12,6 +12,7 @@ const ordersController = new OrdersController();
 ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
+ordersRouter.get('/', ordersController.index);
 
 ordersRouter.get('/:id',
   /*
