@@ -60,7 +60,6 @@
     "nodemailer": "^6.4.17",
     "pg": "^8.5.1",
     "rate-limiter-flexible": "^2.1.16",
-    "redis": "^4.0.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.6.0",
     "typeorm": "^0.2.29",
