@@ -25,7 +25,7 @@ export default class ProductsController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, price, quantity } = request.body;
+    const { name, price, quantity, description } = request.body;
 
     const createProduct = new CreateProductService();
 
@@ -33,13 +33,14 @@ export default class ProductsController {
       name,
       price,
       quantity,
+      description,
     });
 
     return response.json(product);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { name, price, quantity } = request.body;
+    const { name, price, quantity, description } = request.body;
     const { id } = request.params;
 
     const updateProduct = new UpdateProductService();
@@ -49,6 +50,7 @@ export default class ProductsController {
       name,
       price,
       quantity,
+      description,
     });
 
     return response.json(product);

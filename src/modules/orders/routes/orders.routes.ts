@@ -2,14 +2,12 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import OrdersController from '../controllers/OrdersController';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
-import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 import cookieParser from 'cookie-parser';
-
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 
-enum order_status_type{
+enum order_status_type {
   DELIVERING = 'delivering',
   ONGOING = 'ongoing',
   CANCELED = 'canceled',
@@ -20,29 +18,34 @@ enum order_status_type{
 ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
-ordersRouter.get('/history',
+ordersRouter.get(
+  '/history',
 
-ordersController.show_status_history);
+  ordersController.show_status_history,
+);
 
-ordersRouter.get('/ongoing',
+ordersRouter.get(
+  '/ongoing',
 
-ordersController.show_status_ongoing);
+  ordersController.show_status_ongoing,
+);
 
-ordersRouter.post('/new_status',
-celebrate({
-  [Segments.PARAMS]: {
-    status: Joi.string().uuid().required(),
-    order_id: Joi.string().uuid().required(),
-  },
-}),
+ordersRouter.post(
+  '/new_status',
+  celebrate({
+    [Segments.PARAMS]: {
+      status: Joi.string().uuid().required(),
+      order_id: Joi.string().uuid().required(),
+    },
+  }),
 
-ordersController.updateStatus);
-
-
+  ordersController.updateStatus,
+);
 
 ordersRouter.get('/', ordersController.index);
 
-ordersRouter.get('/:id',
+ordersRouter.get(
+  '/:id',
   /*
   #swagger.description = 'Orders show route'
   #swagger.path = '/orders'

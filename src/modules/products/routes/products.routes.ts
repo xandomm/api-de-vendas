@@ -13,7 +13,8 @@ productsRouter.use(cookieParser());
 productsRouter.get('/', productsController.index);
 
 productsRouter.get(
-  '/:id', isAuthenticated || isCustomerAuthenticated,
+  '/:id',
+  isAuthenticated || isCustomerAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -23,7 +24,8 @@ productsRouter.get(
 );
 
 productsRouter.post(
-  '/', isAuthenticated,
+  '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -35,12 +37,14 @@ productsRouter.post(
 );
 
 productsRouter.put(
-  '/:id', isAuthenticated,
+  '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       price: Joi.number().precision(2).required(),
       quantity: Joi.number().required(),
+      description: Joi.string(),
     },
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -50,7 +54,8 @@ productsRouter.put(
 );
 
 productsRouter.delete(
-  '/:id', isAuthenticated,
+  '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),

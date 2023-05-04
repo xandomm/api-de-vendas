@@ -82,7 +82,7 @@ export default class OrdersController {
     return response.json(order);
   }
 
-  public async updadeStatus(request: Request, response: Response): Promise<Response> {
+  public async updateStatus(request: Request, response: Response): Promise<Response> {
     const { order_status, payment_method } = request.body;
     const authHeader = request.headers.authorization;
 
