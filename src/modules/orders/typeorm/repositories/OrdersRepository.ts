@@ -11,7 +11,7 @@ interface IProduct {
 interface IRequest {
   customer: Customer;
   products: IProduct[];
-  order_address: string;
+  address_id: string;
   order_status: string;
   payment_method: string;
 }
@@ -26,20 +26,30 @@ class OrdersRepository extends Repository<Order> {
     return order;
   }
 
-  public async createOrder({ customer, products, order_address, order_status,  payment_method }: IRequest): Promise<Order> {
+  public async findByUserId(user_id: string): Promise<Order | undefined> {
+    const order = this.find({
+      where: {
+        user_id,
+      },
+    });
+
+    return order;
+  }
+
+  public async createOrder({ customer, products, address_id, order_status,  payment_method }: IRequest): Promise<Order> {
     const order = this.create({
       customer: customer,
       order_products: products,
-      order_address: order_address,
+      address_id: address_id,
       order_status: order_status,
       payment_method: payment_method,
-
     });
 
     await this.save(order);
 
     return order;
   }
+
 }
 
 export default OrdersRepository;

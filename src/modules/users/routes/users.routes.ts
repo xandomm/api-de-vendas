@@ -5,10 +5,14 @@ import uploadConfig from '@config/upload';
 import UsersController from '../controllers/UsersController';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import UserAvatarController from '../controllers/UserAvatarController';
+import cookieParser from 'cookie-parser';
 
 const usersRouter = Router();
 const usersController = new UsersController();
 const usersAvatarController = new UserAvatarController();
+
+usersRouter.use(cookieParser());
+usersRouter.use(isAuthenticated);
 
 const upload = multer(uploadConfig.multer);
 
@@ -29,6 +33,7 @@ usersRouter.post(
 
 usersRouter.patch(
   '/avatar',
+  isAuthenticated,
   isAuthenticated,
   upload.single('avatar'),
   usersAvatarController.update,

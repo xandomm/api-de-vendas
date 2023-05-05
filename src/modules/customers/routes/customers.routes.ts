@@ -6,12 +6,11 @@ import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 
 const customersRouter = Router();
 const customersController = new CustomersController();
-
 customersRouter.get('/', isAuthenticated, customersController.index);
 
 customersRouter.get(
   '/:id',
-  isCustomerAuthenticated,
+  isAuthenticated || isCustomerAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -28,7 +27,6 @@ customersRouter.post(
       email: Joi.string().email().required(),
       password: Joi.string().required(),
       phone_number: Joi.string().required(),
-
     },
   }),
   customersController.create,
@@ -36,6 +34,7 @@ customersRouter.post(
 
 customersRouter.put(
   '/:id',
+  isCustomerAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -50,6 +49,7 @@ customersRouter.put(
 
 customersRouter.delete(
   '/:id',
+  isAuthenticated || isCustomerAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),

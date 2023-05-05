@@ -1,13 +1,27 @@
-import { isAuthenticated } from '@shared/http/middlewares/isAuthenticated';
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 import AddressesController from '../controllers/AddressesController';
 import { celebrate, Joi, Segments } from 'celebrate';
-import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuth';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
+import cookieParser from 'cookie-parser';
 
 const addressesRouter = Router();
 const addressesController = new AddressesController();
 
-addressesRouter.get('/', isAuthenticated, addressesController.index);
+enum address_type {
+  HOME = 'home',
+  WORK = 'work',
+  OTHER = 'other',
+}
+
+addressesRouter.use(cookieParser());
+//addressesRouter.use(isAuthenticated);
+
+addressesRouter.get(
+  '/',
+
+  addressesController.index,
+);
 
 addressesRouter.get(
   '/:id',
@@ -49,16 +63,25 @@ addressesRouter.post(
 
   celebrate({
     [Segments.BODY]: {
-      nearby_address: Joi.string(),
+      user_id: Joi.string(),
       address: Joi.string(),
+      cep: Joi.string(),
+      street: Joi.string(),
+      number: Joi.string(),
+      complement: Joi.string(),
+      city: Joi.string(),
+      neighborhood: Joi.string(),
+      address_type: Joi.string().valid(...Object.values(address_type)),
+      latitude: Joi.string(),
+      longitude: Joi.string(),
     },
   }),
   addressesController.create,
 );
 
-
 addressesRouter.delete(
   '/:id',
+  isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'address Delete'
   #swagger.path = '/addresses/:id'

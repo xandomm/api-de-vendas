@@ -2,15 +2,19 @@ import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
-import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuth';
-
+import cookieParser from 'cookie-parser';
+import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 const productsRouter = Router();
 const productsController = new ProductsController();
 
-productsRouter.get('/', isCustomerAuthenticated, productsController.index);
+productsRouter.use(cookieParser());
+//productsRouter.use(isAuthenticated);
+
+productsRouter.get('/', productsController.index);
 
 productsRouter.get(
   '/:id',
+  isAuthenticated || isCustomerAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -35,11 +39,13 @@ productsRouter.post(
 
 productsRouter.put(
   '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
       price: Joi.number().precision(2).required(),
       quantity: Joi.number().required(),
+      description: Joi.string(),
     },
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -50,6 +56,7 @@ productsRouter.put(
 
 productsRouter.delete(
   '/:id',
+  isAuthenticated,
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
