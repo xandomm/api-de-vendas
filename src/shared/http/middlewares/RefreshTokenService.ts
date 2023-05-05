@@ -1,13 +1,13 @@
 import jwt from 'jsonwebtoken';
-const REFRESH_TOKEN_SECRET = "secret";
-const JWT_SECRET = "secret";
+const REFRESH_TOKEN_SECRET = 'secret';
+const JWT_SECRET = 'secret';
 const ACCESS_TOKEN_EXPIRATION_TIME = '1m';
-interface IRefresh_token{
+interface IRefresh_token {
   refresh_token: string;
 }
 
-interface IToken{
-  token: string
+interface IToken {
+  token: string;
 }
 class RefreshTokenService {
   public refresh(refresh_token) {
@@ -18,11 +18,10 @@ class RefreshTokenService {
         JWT_SECRET,
         { expiresIn: ACCESS_TOKEN_EXPIRATION_TIME },
       );
-      return {token};
+      return { token };
     } catch (error) {
-     console.log(error);
+      console.log(error);
     }
-
   }
 }
 

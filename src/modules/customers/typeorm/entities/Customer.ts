@@ -26,10 +26,6 @@ class Customer {
 
   @Column()
   @Exclude()
-  phone_number_verification_code: string;
-
-  @Column()
-  @Exclude()
   password: string;
 
   @CreateDateColumn()

@@ -11,7 +11,12 @@ interface IRequest {
 }
 
 class UpdateCustomerService {
-  public async execute({ id, name, email, phone_number }: IRequest): Promise<Customer> {
+  public async execute({
+    id,
+    name,
+    email,
+    phone_number,
+  }: IRequest): Promise<Customer> {
     const customersRepository = getCustomRepository(CustomersRepository);
 
     const customer = await customersRepository.findById(id);

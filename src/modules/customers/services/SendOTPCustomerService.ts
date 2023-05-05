@@ -14,47 +14,50 @@ export default class SendOTPCustomerService {
     this.client = twilio(accountSid, authToken);
   }
 
-  public async sendOTP(to: string): Promise<void> {
+  public async sendOTP(to: string): Promise<boolean> {
     try {
       const service = await this.client.verify.v2.services.create({
-        friendlyName: 'My Verify Service',
+        friendlyName: 'Cesta feira',
       });
-      const send = await this.client.verify.v2
+
+      const verification = await this.client.verify.v2
         .services(service.sid)
         .verifications.create({ to, channel: 'sms' });
-
+      if (!verification.lookup) {
+        console.log(verification.lookup);
+        return false;
+      }
       console.log(`OTP sent successfully to ${to}`);
+      return true;
     } catch (error) {
       console.error('Error sending OTP:', error);
-      throw new Error('Failed to send OTP');
+      return false;
     }
   }
-
   public async validateOTP(to: string, code: string): Promise<boolean> {
     try {
       const service = await this.client.verify.v2.services.create({
-        friendlyName: 'My Verify Service',
+        friendlyName: 'Cesta feira',
       });
-      const verificationCheck = await this.client.verify.v2
-        .services(service.sid)
-        .verificationChecks.create({ to, code });
+      console.log(service.sid);
+      await this.client.verify.v2
+        .services(`${accountSid}`)
+        .verificationChecks.create({ to, code })
+        .then(check => {
+          if (check.status !== 'approved') {
+            console.log(check.status);
+            return false;
+          }
+        })
+        .catch(error => {
+          console.error('Error validating OTP:', error);
+          return false;
+        });
 
-      console.log(verificationCheck);
-      console.log(verificationCheck.status);
-      console.log(verificationCheck.valid);
-      console.log(verificationCheck.to);
-      console.log(verificationCheck.sid);
-      console.log(verificationCheck.channel);
-
-      if (verificationCheck.status === 'approved') {
-        console.log(`OTP validation successful for ${to}`);
-        return true;
-      } else {
-        throw new AppError('Failed to validate OTP');
-      }
+      return true;
     } catch (error) {
       console.error('Error validating OTP:', error);
-      throw new AppError('Failed to validate OTP', 500);
+      return false;
     }
   }
 }

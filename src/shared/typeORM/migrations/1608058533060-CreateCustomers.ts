@@ -31,10 +31,6 @@ export class CreateCustomers1608058533060 implements MigrationInterface {
             type: 'boolean',
           },
           {
-            name: 'phone_number_verification_code',
-            type: 'varchar',
-          },
-          {
             name: 'password',
             type: 'varchar',
           },

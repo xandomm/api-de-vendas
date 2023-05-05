@@ -3,6 +3,7 @@ import { getCustomRepository } from 'typeorm';
 import Customer from '../typeorm/entities/Customer';
 import CustomersRepository from '../typeorm/repositories/CustomersRepository';
 import { sendSMS } from '@config/sms';
+import SendOTPCustomerService from './SendOTPCustomerService';
 
 interface IRequest {
   name: string;
@@ -36,15 +37,14 @@ class CreateCustomerService {
       phone_number,
     );
 
-    if (phoneNumberExists) {
-      throw new AppError('Phone number already used.');
-    }
+    const sendOTP = new SendOTPCustomerService();
+    // if (phoneNumberExists) {
+    //   throw new AppError('Phone number already used.');
+    // }
 
     if (emailExists) {
       throw new AppError('Email address already used.');
     }
-
-    const phone_number_verification_code = generateRandomCharacters();
 
     const phone_number_verified = false;
     const customer = customersRepository.create({
@@ -52,15 +52,9 @@ class CreateCustomerService {
       email,
       password,
       phone_number,
-      phone_number_verification_code,
       phone_number_verified,
     });
-    const message = `Olá ${name}, seja bem vindo ao cesta feira app! 
-    \n Seu código de verificação é:  ${phone_number_verification_code}`;
-    const onSentSms = await sendSMS({
-      to: phone_number,
-      message,
-    });
+    const onSentSms = await sendOTP.sendOTP('+55' + phone_number);
 
     if (!onSentSms) {
       throw new AppError('Error sending sms');

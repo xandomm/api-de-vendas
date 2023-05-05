@@ -3,12 +3,13 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import CustomersSessionsController from '../controllers/CustomersSessionsController';
 import cookieParser from 'cookie-parser';
 import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
-import SendOTPCustomerService from '../services/SendOTPCustomerService';
+import CustomersPhoneVerificationController from '../controllers/CustomersPhoneVerificationController';
 
 const customersSessionsRoute = Router();
 
 const customersSessionsController = new CustomersSessionsController();
-const sendOTP = new SendOTPCustomerService();
+const customerVerifyController = new CustomersPhoneVerificationController();
+
 customersSessionsRoute.use(cookieParser());
 
 customersSessionsRoute.post(
@@ -21,18 +22,17 @@ customersSessionsRoute.post(
   }),
   customersSessionsController.create,
 );
-customersSessionsRoute.get('/verify', async (req, res, next) => {
-  await sendOTP.sendOTP('+5534998269655');
-  res.send('ok');
-  next();
-});
 
-customersSessionsRoute.post('/verify', async (req, res, next) => {
-  const { to, code } = req.body;
-  await sendOTP.validateOTP(to, code);
-  res.send('ok');
-  next();
-});
+customersSessionsRoute.post(
+  '/verify',
+  celebrate({
+    [Segments.BODY]: {
+      phone_number: Joi.string().required(),
+      code: Joi.string().required(),
+    },
+  }),
+  customerVerifyController.verify,
+);
 customersSessionsRoute.get(
   '/refresh',
   isCustomerAuthenticated,
