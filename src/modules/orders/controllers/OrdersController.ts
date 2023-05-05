@@ -4,6 +4,7 @@ import ShowOrderService from '../services/ShowOrderService';
 import auth from '@config/auth';
 import ListOrdersService from '../services/ListOrdersService';
 import UpdateOrderService from '../services/UpdateOrderService';
+import UpdateStatusService from '../services/UpdateStatusService';
 
 const jwt = require('jsonwebtoken');
 
@@ -83,7 +84,7 @@ export default class OrdersController {
   }
 
   public async updateStatus(request: Request, response: Response): Promise<Response> {
-    const { order_status, payment_method } = request.body;
+    const { order_status, id } = request.body;
     const authHeader = request.headers.authorization;
 
     const [, token] = authHeader.split(' ');
@@ -97,6 +98,7 @@ export default class OrdersController {
     const order = await update.updateStatus({
       customer,
       order_status,
+      id,
     });
 
     return response.json(order);

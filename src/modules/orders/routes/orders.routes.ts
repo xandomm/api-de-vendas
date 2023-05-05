@@ -27,8 +27,11 @@ ordersRouter.get(
 ordersRouter.get(
   '/ongoing',
 
-  ordersController.show_status_ongoing,
-);
+ordersController.show_status_ongoing);
+
+ordersRouter.post('/new_status',
+
+ordersController.updateStatus);
 
 ordersRouter.post(
   '/new_status',
