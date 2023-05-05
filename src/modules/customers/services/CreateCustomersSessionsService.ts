@@ -1,17 +1,17 @@
 import AppError from '@shared/errors/AppError';
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
-import authConfig from '@config/auth';
+import authConfig from '@config/customerAuth';
 import { getCustomRepository } from 'typeorm';
 import Customer from '../typeorm/entities/Customer';
 import CustomersRepository from '../typeorm/repositories/CustomersRepository';
 import { Response } from 'express';
 
-const ACCESS_TOKEN_EXPIRATION_TIME = '15m';
-const REFRESH_TOKEN_EXPIRATION_TIME = '7d';
-const JWT_SECRET = 'secret';
-const REFRESH_TOKEN_SECRET = 'secret';
-authConfig.jwt.secret = 'secret';
+const ACCESS_TOKEN_EXPIRATION_TIME = authConfig.jwt.expires_in;
+const REFRESH_TOKEN_EXPIRATION_TIME = authConfig.refresh_jwt.secret;
+const JWT_SECRET = authConfig.jwt.secret;
+const REFRESH_TOKEN_SECRET = authConfig.refresh_jwt.expires_in;
+
 interface IRequest {
   email: string;
   password: string;

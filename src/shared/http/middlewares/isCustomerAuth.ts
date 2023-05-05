@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { verify, Secret } from 'jsonwebtoken';
 import AppError from '@shared/errors/AppError';
-import authConfig from '@config/auth';
+import authConfig from '@config/customerAuth';
 
 interface ITokenPayload {
   iat: number;
@@ -9,7 +9,7 @@ interface ITokenPayload {
   sub: string;
 }
 
-export default function isAuthenticated(
+export default function isCustomerAuthenticated(
   request: Request,
   response: Response,
   next: NextFunction,
@@ -27,7 +27,7 @@ export default function isAuthenticated(
 
     const { sub } = decodedToken as ITokenPayload;
 
-    request.user = {
+    request.client = {
       id: sub,
     };
 
@@ -36,6 +36,7 @@ export default function isAuthenticated(
     if (error.name === 'TokenExpiredError') {
       const refreshToken = request.cookies.refreshToken;
       if (!refreshToken) {
+        console.log('error 401');
         response.status(401).json({ message: 'Refresh token is missing' });
       }
       const decodedToken = verify(
@@ -45,7 +46,7 @@ export default function isAuthenticated(
 
       const { sub } = decodedToken as ITokenPayload;
 
-      request.user = {
+      request.client = {
         id: sub,
       };
       response.cookie('refreshToken', refreshToken, { httpOnly: true });
@@ -53,4 +54,5 @@ export default function isAuthenticated(
       return next();
     }
   }
+  return next();
 }

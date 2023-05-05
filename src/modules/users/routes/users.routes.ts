@@ -19,7 +19,8 @@ const upload = multer(uploadConfig.multer);
 usersRouter.get('/', isAuthenticated, usersController.index);
 
 usersRouter.post(
-  '/', isAuthenticated,
+  '/',
+  isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),
@@ -31,7 +32,8 @@ usersRouter.post(
 );
 
 usersRouter.patch(
-  '/avatar', isAuthenticated,
+  '/avatar',
+  isAuthenticated,
   isAuthenticated,
   upload.single('avatar'),
   usersAvatarController.update,

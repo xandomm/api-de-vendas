@@ -1,7 +1,7 @@
+import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import { Router } from 'express';
 import ProductsController from '../controllers/ProductsController';
 import { celebrate, Joi, Segments } from 'celebrate';
-import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import cookieParser from 'cookie-parser';
 import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
 const productsRouter = Router();
@@ -33,6 +33,7 @@ productsRouter.post(
       quantity: Joi.number().required(),
     },
   }),
+
   productsController.create,
 );
 
