@@ -22,14 +22,14 @@ interface IResponse {
   customer: Customer;
   token: string;
   refresh_token: string;
-
 }
 
-
 class CreateCustomersSessionsService {
-
-
-  public async execute({ email, password, response} : IRequest): Promise<IResponse> {
+  public async execute({
+    email,
+    password,
+    response,
+  }: IRequest): Promise<IResponse> {
     const customersRepository = getCustomRepository(CustomersRepository);
     const customer = await customersRepository.findByEmail(email);
 
@@ -42,7 +42,6 @@ class CreateCustomersSessionsService {
     if (!passwordConfirmed) {
       throw new AppError('Incorrect email/password combination.', 401);
     }
-
 
     const token = sign({}, JWT_SECRET, {
       subject: customer.id,
