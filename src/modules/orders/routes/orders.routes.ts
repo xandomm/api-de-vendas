@@ -2,13 +2,50 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import OrdersController from '../controllers/OrdersController';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
+import cookieParser from 'cookie-parser';
 
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 
+enum order_status_type {
+  DELIVERING = 'delivering',
+  ONGOING = 'ongoing',
+  CANCELED = 'canceled',
+  COMPLETED = 'completed',
+  FAIL_DELIVERY = 'fail_delivery',
+}
+
+ordersRouter.use(cookieParser());
 ordersRouter.use(isAuthenticated);
 
-ordersRouter.get('/:id',
+ordersRouter.get(
+  '/history',
+
+  ordersController.show_status_history,
+);
+
+ordersRouter.get(
+  '/ongoing',
+
+  ordersController.show_status_ongoing,
+);
+
+ordersRouter.post(
+  '/new_status',
+  celebrate({
+    [Segments.PARAMS]: {
+      status: Joi.string().uuid().required(),
+      order_id: Joi.string().uuid().required(),
+    },
+  }),
+
+  ordersController.updateStatus,
+);
+
+ordersRouter.get('/', ordersController.index);
+
+ordersRouter.get(
+  '/:id',
   /*
   #swagger.description = 'Orders show route'
   #swagger.path = '/orders'
@@ -61,8 +98,9 @@ ordersRouter.post(
     [Segments.BODY]: {
       customer_id: Joi.string().uuid().required(),
       products: Joi.required(),
-      order_address: Joi.required(),
-      order_status: Joi.required(),
+      address_id: Joi.required(),
+      order_status: Joi.string().valid(...Object.values(order_status_type)),
+      payment_method: Joi.required(),
     },
   }),
   ordersController.create,

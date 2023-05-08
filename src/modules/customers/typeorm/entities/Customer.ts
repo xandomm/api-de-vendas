@@ -1,6 +1,5 @@
 import { Exclude } from 'class-transformer';
 import {
-
   Column,
   CreateDateColumn,
   Entity,
@@ -18,6 +17,12 @@ class Customer {
 
   @Column()
   email: string;
+
+  @Column()
+  phone_number: string;
+
+  @Column()
+  phone_number_verified: boolean;
 
   @Column()
   @Exclude()

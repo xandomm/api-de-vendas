@@ -13,12 +13,13 @@ interface IProduct {
 interface IRequest {
   customer_id: string;
   products: IProduct[];
-  order_address: string;
+  address_id: string;
   order_status: string;
+  payment_method: string;
 }
 
 class CreateOrderService {
-  public async execute({ customer_id, products, order_address, order_status }: IRequest): Promise<Order> {
+  public async execute({ customer_id, products, address_id, order_status, payment_method }: IRequest): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);
     const customersRepository = getCustomRepository(CustomersRepository);
     const productsRepository = getCustomRepository(ProductRepository);
@@ -71,8 +72,9 @@ class CreateOrderService {
     const order = await ordersRepository.createOrder({
       customer: customerExists,
       products: serializedProducts,
-      order_address: order_address,
-      order_status: order_status
+      address_id: address_id,
+      order_status: order_status,
+      payment_method: payment_method
 
     });
 

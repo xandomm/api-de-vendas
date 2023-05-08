@@ -25,7 +25,7 @@ export default class CustomersController {
   }
 
   public async create(request: Request, response: Response): Promise<Response> {
-    const { name, email, password } = request.body;
+    const { name, email, password, phone_number } = request.body;
 
     const createCustomer = new CreateCustomerService();
 
@@ -33,13 +33,14 @@ export default class CustomersController {
       name,
       email,
       password,
+      phone_number,
     });
 
     return response.json(customer);
   }
 
   public async update(request: Request, response: Response): Promise<Response> {
-    const { name, email } = request.body;
+    const { name, email, phone_number } = request.body;
     const { id } = request.params;
 
     const updateCustomer = new UpdateCustomerService();
@@ -48,6 +49,7 @@ export default class CustomersController {
       id,
       name,
       email,
+      phone_number,
     });
 
     return response.json(customer);

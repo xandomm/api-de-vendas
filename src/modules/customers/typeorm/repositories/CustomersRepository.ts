@@ -32,6 +32,17 @@ class CustomersRepository extends Repository<Customer> {
 
     return customer;
   }
+  public async findByPhoneNumber(
+    phone_number: string,
+  ): Promise<Customer | undefined> {
+    const customer = await this.findOne({
+      where: {
+        phone_number,
+      },
+    });
+
+    return customer;
+  }
 }
 
 export default CustomersRepository;

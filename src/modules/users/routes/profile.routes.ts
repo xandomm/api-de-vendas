@@ -2,16 +2,18 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import ProfileController from '../controllers/ProfileController';
+import cookieParser from 'cookie-parser';
 
 const profileRouter = Router();
 const profileController = new ProfileController();
 
+profileRouter.use(cookieParser());
 profileRouter.use(isAuthenticated);
 
-profileRouter.get('/', profileController.show);
+profileRouter.get('/', isAuthenticated, profileController.show);
 
 profileRouter.put(
-  '/',
+  '/', isAuthenticated,
   celebrate({
     [Segments.BODY]: {
       name: Joi.string().required(),

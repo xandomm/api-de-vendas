@@ -1,4 +1,4 @@
-import redisCache from '@shared/cache/RedisCache';
+
 import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import AddressRepository from '../typeorm/repositories/AddressesRepository';
@@ -17,7 +17,7 @@ class DeleteAddressService {
       throw new AppError('Address not found.');
     }
 
-    await redisCache.invalidate('api-vendas-ADDRESS_LIST');
+
 
     await addressesRepository.remove(address);
   }
