@@ -41,7 +41,7 @@ class Address {
   neighborhood: string;
 
   @Column()
-  address_type: address_type;
+  address_type: string;
 
   //@Column({
     //type: 'enum',
