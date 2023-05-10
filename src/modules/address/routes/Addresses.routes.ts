@@ -8,7 +8,7 @@ import cookieParser from 'cookie-parser';
 const addressesRouter = Router();
 const addressesController = new AddressesController();
 
-enum address_type{
+enum address_type {
   HOME = 'home',
   WORK = 'work',
   OTHER = 'other',
@@ -17,10 +17,11 @@ enum address_type{
 addressesRouter.use(cookieParser());
 //addressesRouter.use(isAuthenticated);
 
+addressesRouter.get(
+  '/',
 
-addressesRouter.get('/',
-
-addressesController.index);
+  addressesController.index,
+);
 
 addressesRouter.get(
   '/:id',
@@ -78,9 +79,9 @@ addressesRouter.post(
   addressesController.create,
 );
 
-
 addressesRouter.delete(
-  '/:id', isAuthenticated || isCustomerAuthenticated,
+  '/:id',
+  isAuthenticated || isCustomerAuthenticated,
   /*
   #swagger.description = 'address Delete'
   #swagger.path = '/addresses/:id'
