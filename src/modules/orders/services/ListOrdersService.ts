@@ -6,8 +6,7 @@ class ListOrdersService {
   public async execute(): Promise<Orders[]> {
     const ordersRepository = getCustomRepository(OrdersRepository);
 
-      let orders = await ordersRepository.find();
-
+    const orders = await ordersRepository.findAll();
     return orders;
   }
 }

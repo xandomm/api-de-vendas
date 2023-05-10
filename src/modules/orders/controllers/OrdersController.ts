@@ -3,10 +3,9 @@ import CreateOrderService from '../services/CreateOrderService';
 import ShowOrderService from '../services/ShowOrderService';
 import auth from '@config/auth';
 import ListOrdersService from '../services/ListOrdersService';
-import UpdateOrderService from '../services/UpdateOrderService';
-import UpdateStatusService from '../services/UpdateStatusService';
 
-const jwt = require('jsonwebtoken');
+import UpdateStatusService from '../services/UpdateStatusService';
+import jwt from 'jsonwebtoken';
 
 export default class OrdersController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -19,7 +18,9 @@ export default class OrdersController {
 
   public async show(request: Request, response: Response): Promise<Response> {
     const authHeader = request.headers.authorization;
-
+    if (!authHeader) {
+      return response.status(401).json({ error: 'Token not provided' });
+    }
     const [, token] = authHeader.split(' ');
 
     const decodedToken = jwt.verify(token, auth.jwt.secret);

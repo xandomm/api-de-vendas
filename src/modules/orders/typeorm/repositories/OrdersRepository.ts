@@ -20,12 +20,18 @@ interface IRequest {
 class OrdersRepository extends Repository<Order> {
   public async findById(id: string): Promise<Order | undefined> {
     const order = this.findOne(id, {
-      relations: ['order_products', 'customer'],
+      relations: ['order_products', 'customer', 'order_address'],
     });
 
     return order;
   }
+  public async findAll(): Promise<any> {
+    const orders = this.find({
+      relations: ['order_products', 'customer'],
+    });
 
+    return orders;
+  }
   public async findByUserId(user_id: string): Promise<Order | undefined> {
     const order = this.find({
       where: {
