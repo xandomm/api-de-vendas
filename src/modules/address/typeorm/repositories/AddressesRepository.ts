@@ -18,7 +18,7 @@ class AddressRepository extends Repository<Address> {
   }
 
   public async findByUserId(user_id: string): Promise<Address | undefined> {
-    const address = this.find({
+    const address = this.findOne({
       where: {
         user_id,
       },
@@ -27,7 +27,9 @@ class AddressRepository extends Repository<Address> {
     return address;
   }
 
-  public async findByAddress_type(address_type: string): Promise<Address | undefined> {
+  public async findByAddress_type(
+    address_type: string,
+  ): Promise<Address | undefined> {
     const address = await this.findOne({
       where: {
         address_type,
@@ -37,7 +39,14 @@ class AddressRepository extends Repository<Address> {
     return address;
   }
 
-
+  public async findById({ id }: { id: string }) {
+    const address = await this.findOne({
+      where: {
+        id,
+      },
+    });
+    return address;
+  }
 
   public async findAllByIds(addresses: IFindAddresses[]): Promise<Address[]> {
     const addressIds = addresses.map(address => address.id);

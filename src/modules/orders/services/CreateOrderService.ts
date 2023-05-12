@@ -4,6 +4,9 @@ import AppError from '@shared/errors/AppError';
 import { getCustomRepository } from 'typeorm';
 import Order from '../typeorm/entities/Order';
 import OrdersRepository from '../typeorm/repositories/OrdersRepository';
+import AddressRepository from '@modules/address/typeorm/repositories/AddressesRepository';
+import CreditCardPaymentService from './CreditCardPaymentService';
+import { add } from 'date-fns';
 
 interface IProduct {
   id: string;
@@ -19,15 +22,27 @@ interface IRequest {
 }
 
 class CreateOrderService {
-  public async execute({ customer_id, products, address_id, order_status, payment_method }: IRequest): Promise<Order> {
+  public async execute({
+    customer_id,
+    products,
+    address_id,
+    order_status,
+    payment_method,
+  }: IRequest): Promise<Order> {
+    const pagseguro = new CreditCardPaymentService();
     const ordersRepository = getCustomRepository(OrdersRepository);
     const customersRepository = getCustomRepository(CustomersRepository);
     const productsRepository = getCustomRepository(ProductRepository);
+    const addressRepository = getCustomRepository(AddressRepository);
 
     const customerExists = await customersRepository.findById(customer_id);
-
+    const addressExists = await addressRepository.findById({ id: address_id });
     if (!customerExists) {
       throw new AppError('Could not find any customer with the given id.');
+    }
+
+    if (!addressExists) {
+      throw new AppError('Could not find any address with the given id.');
     }
 
     const existsProducts = await productsRepository.findAllByIds(products);
@@ -67,16 +82,60 @@ class CreateOrderService {
       price: existsProducts.filter(p => p.id === product.id)[0].price,
     }));
 
-
-
     const order = await ordersRepository.createOrder({
       customer: customerExists,
       products: serializedProducts,
       address_id: address_id,
       order_status: order_status,
-      payment_method: payment_method
-
+      payment_method,
     });
+    const area = customerExists.phone_number.substring(0, 2);
+    const number = customerExists.phone_number.substring(2, 7);
+    const pagseguroResponse = await pagseguro.createOrder({
+      reference_id: order.id,
+      customer: {
+        name: customerExists.name,
+        email: customerExists.email,
+        tax_id: customerExists.id,
+        phones: [
+          {
+            country: '55',
+            area: area,
+            number: number,
+            type: 'MOBILE',
+          },
+        ],
+      },
+      items: serializedProducts.map(product => ({
+        reference_id: product.product_id,
+        name: existsProducts.filter(p => p.id === product.product_id)[0].name,
+        quantity: product.quantity,
+        unit_amount: product.price,
+      })),
+      shipping: {
+        address: {
+          street: addressExists.street,
+          number: addressExists.number,
+          complement: addressExists.complement,
+          locality: addressExists.neighborhood,
+          city: addressExists.city,
+          region_code: 'MG',
+          country: 'BR',
+          postal_code: addressExists.cep,
+        },
+      },
+      qr_codes: [
+        {
+          amount: {
+            value: 500,
+          },
+        },
+      ],
+      notification_urls: ['https://meusite.com/notificacoes'],
+    });
+    if (pagseguroResponse.status !== 'SUCCESS') {
+      throw new AppError('Pagseguro error');
+    }
 
     const { order_products } = order;
 
