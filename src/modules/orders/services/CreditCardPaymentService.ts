@@ -54,6 +54,7 @@ interface PagSeguroCreateOrderRequest {
   qr_codes: PagSeguroQrCode[];
   shipping: PagSeguroShipping;
   notification_urls: string[];
+  status?: string;
 }
 
 interface PagSeguroCreateOrderResponse {
@@ -74,55 +75,60 @@ interface PagSeguroCreateOrderResponse {
 }
 
 export default class CreditCardPaymentService {
-  private credentials: PagSeguroCredentials;
-  private url = 'https://sandbox.api.pagseguro.com/orders';
+  // private credentials: PagSeguroCredentials;
+  // private url = 'https://sandbox.api.pagseguro.com/orders';
 
-  constructor(credentials: PagSeguroCredentials) {
-    this.credentials = credentials;
-  }
+  // constructor(credentials: PagSeguroCredentials) {
+  //   this.credentials = credentials;
+  // }
 
-  public async createOrder(
-    request: PagSeguroCreateOrderRequest,
-  ): Promise<PagSeguroCreateOrderResponse> {
-    const postData = JSON.stringify(request);
+  // public async createOrder(
+  //   request: PagSeguroCreateOrderRequest,
+  // ): Promise<PagSeguroCreateOrderResponse> {
+  //   const postData = JSON.stringify(request);
 
-    const options: RequestOptions = {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${this.credentials.token}`,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData),
-      },
-    };
+  //   const options: RequestOptions = {
+  //     method: 'POST',
+  //     headers: {
+  //       Authorization: `Bearer ${this.credentials.token}`,
+  //       'Content-Type': 'application/json',
+  //       'Content-Length': Buffer.byteLength(postData),
+  //     },
+  //   };
 
-    const promise = new Promise<PagSeguroCreateOrderResponse>(
-      (resolve, reject) => {
-        const req = http.request(this.url, options, res => {
-          let data = '';
+  //   const promise = new Promise<PagSeguroCreateOrderResponse>(
+  //     (resolve, reject) => {
+  //       const req = http.request(this.url, options, res => {
+  //         let data = '';
 
-          res.on('data', chunk => {
-            data += chunk;
-          });
+  //         res.on('data', chunk => {
+  //           data += chunk;
+  //         });
 
-          res.on('end', () => {
-            const response = JSON.parse(data);
-            if (response.errors) {
-              reject(response.errors);
-            } else {
-              resolve(response);
-            }
-          });
-        });
+  //         res.on('end', () => {
+  //           const response = JSON.parse(data);
+  //           if (response.errors) {
+  //             reject(response.errors);
+  //           } else {
+  //             resolve(response);
+  //           }
+  //         });
+  //       });
 
-        req.on('error', err => {
-          reject(err);
-        });
+  //       req.on('error', err => {
+  //         reject(err);
+  //       });
 
-        req.write(postData);
-        req.end();
-      },
-    );
+  //       req.write(postData);
+  //       req.end();
+  //     },
+  //   );
 
-    return promise;
+  //   return promise;
+  // }
+
+  public async createOrder(request: PagSeguroCreateOrderRequest) {
+    request.status = 'SUCCESS';
+    return request;
   }
 }

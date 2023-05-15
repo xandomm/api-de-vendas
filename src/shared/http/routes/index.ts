@@ -11,6 +11,7 @@ import swaggerFile from '../../../../swagger/swagger_output.json';
 import bodyParser from 'body-parser';
 import addressesRouter from '@modules/address/routes/Addresses.routes';
 import customersSessions from '@modules/customers/routes/customers.sessions.routes';
+import stripeRouter from '@modules/orders/routes/stripe.routes';
 const routes = Router();
 routes.use(bodyParser.urlencoded({ extended: false }));
 routes.use('/products', productsRouter);
@@ -22,7 +23,7 @@ routes.use('/customers', customersRouter);
 routes.use('/orders', ordersRouter);
 routes.use('/addresses', addressesRouter);
 routes.use('/customerSessions', customersSessions);
-
+routes.use('/stripe', stripeRouter);
 routes.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 export default routes;

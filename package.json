@@ -62,6 +62,7 @@
     "pg": "^8.5.1",
     "rate-limiter-flexible": "^2.1.16",
     "reflect-metadata": "^0.1.13",
+    "stripe": "^12.5.0",
     "swagger-ui-express": "^4.6.0",
     "twilio": "^4.11.0",
     "typeorm": "^0.2.29",
