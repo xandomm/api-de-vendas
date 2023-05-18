@@ -75,7 +75,12 @@ class CreateOrderService {
          is not available for ${quantityAvailable[0].id}.`,
       );
     }
-
+    let finalValue = 0;
+    products.map(product => {
+      const quantity = product.quantity;
+      const price = existsProducts.filter(p => p.id === product.id)[0].price;
+      finalValue = finalValue + Number(price * quantity);
+    });
     const serializedProducts = products.map(product => ({
       product_id: product.id,
       quantity: product.quantity,
@@ -89,53 +94,6 @@ class CreateOrderService {
       order_status: order_status,
       payment_method,
     });
-    const area = customerExists.phone_number.substring(0, 2);
-    const number = customerExists.phone_number.substring(2, 7);
-    const pagseguroResponse = await pagseguro.createOrder({
-      reference_id: order.id,
-      customer: {
-        name: customerExists.name,
-        email: customerExists.email,
-        tax_id: customerExists.id,
-        phones: [
-          {
-            country: '55',
-            area: area,
-            number: number,
-            type: 'MOBILE',
-          },
-        ],
-      },
-      items: serializedProducts.map(product => ({
-        reference_id: product.product_id,
-        name: existsProducts.filter(p => p.id === product.product_id)[0].name,
-        quantity: product.quantity,
-        unit_amount: product.price,
-      })),
-      shipping: {
-        address: {
-          street: addressExists.street,
-          number: addressExists.number,
-          complement: addressExists.complement,
-          locality: addressExists.neighborhood,
-          city: addressExists.city,
-          region_code: 'MG',
-          country: 'BR',
-          postal_code: addressExists.cep,
-        },
-      },
-      qr_codes: [
-        {
-          amount: {
-            value: 500,
-          },
-        },
-      ],
-      notification_urls: ['https://meusite.com/notificacoes'],
-    });
-    if (pagseguroResponse.status !== 'SUCCESS') {
-      throw new AppError('Pagseguro error');
-    }
 
     const { order_products } = order;
 
