@@ -4,12 +4,16 @@ import { celebrate, Joi, Segments } from 'celebrate';
 import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 import cookieParser from 'cookie-parser';
 import isCustomerAuthenticated from '@shared/http/middlewares/isCustomerAuthenticated';
+import ProductAvatarController from '../controllers/ProductAvatarController';
+import multer from 'multer';
+import uploadConfig from '@config/upload';
+
 const productsRouter = Router();
 const productsController = new ProductsController();
-
+const productsAvatarController = new ProductAvatarController();
 productsRouter.use(cookieParser());
 //productsRouter.use(isAuthenticated);
-
+const upload = multer(uploadConfig.multer);
 productsRouter.get('/', productsController.index);
 
 productsRouter.get(
@@ -63,5 +67,10 @@ productsRouter.delete(
   }),
   productsController.delete,
 );
-
+productsRouter.patch(
+  '/avatar/:id',
+  isAuthenticated,
+  upload.single('avatar'),
+  productsAvatarController.update,
+);
 export default productsRouter;
