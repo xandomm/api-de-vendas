@@ -1,7 +1,6 @@
 import Stripe from 'stripe';
 import { Router } from 'express';
-console.log(process.env.STRIPE_SECRET_KEY);
-//@ts-ignore
+
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
   apiVersion: '2022-11-15',
 });
@@ -9,7 +8,6 @@ const stripeRouter = Router();
 console.log(process.env.STRIPE_SECRET_KEY);
 stripeRouter.post('/create-payment-intent', async (req, res) => {
   const customer = await stripe.customers.create();
-  console.log(customer);
   const ephemeralKey = await stripe.ephemeralKeys.create(
     { customer: customer.id },
     { apiVersion: '2022-11-15' },
